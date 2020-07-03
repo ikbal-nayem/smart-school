@@ -1,5 +1,5 @@
 from django.db import models
-from account.models import Student, Teacher
+from account.models import Student, Teacher, Staff, Gardian
 import datetime
 
 
@@ -77,7 +77,7 @@ class ClassYearInfo(models.Model):
 class Sections(models.Model):
 	name = models.CharField(max_length=50)
 	class_info = models.ForeignKey(ClassYearInfo, on_delete=models.CASCADE, related_name='sections')
-	class_teacher = models.ForeignKey(Teacher, on_delete=models.DO_NOTHING, related_name='section')
+	class_teacher = models.ForeignKey(Teacher, on_delete=models.DO_NOTHING, related_name='sections', null=True)
 	_created = models.DateTimeField(auto_now_add=True, auto_now=False)
 	_updated = models.DateTimeField(auto_now=True)
 
@@ -86,25 +86,49 @@ class Sections(models.Model):
 
 
 
-# 										year-wise student info
+
+# 										year-wise student academic info
+
 class StudentAcademicInfo(models.Model):
-	student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='all_class')
-	class_id = models.ForeignKey(ClassYear, on_delete=models.DO_NOTHING, related_name='students')
+	student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='academic_info')
+	class_id = models.ForeignKey(ClassYear, on_delete=models.DO_NOTHING, related_name='students', null=True)
 	group = models.ForeignKey(Groups, on_delete=models.DO_NOTHING, related_name='students', null=True, blank=True)
-	section = models.ForeignKey(Sections, on_delete=models.DO_NOTHING, related_name='students')
-	roll = models.IntegerField()
+	section = models.CharField(max_length=10, null=True)
+	roll = models.IntegerField(null=True)
 	session = models.IntegerField(default=datetime.date.today().year)
 	_created = models.DateTimeField(auto_now_add=True, auto_now=False)
 	_updated = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
-		return self.student.__str__()
+		return f'{self.student.__str__()}'
 
 
 
-class TeacherSubjectInfo(models.Model):
-	teacher = models.OneToOneField(Teacher, on_delete=models.CASCADE)
+
+# 										teacher academic info
+
+class TeacherAcademicInfo(models.Model):
+	teacher = models.OneToOneField(Teacher, on_delete=models.CASCADE, related_name='academic_info', primary_key=True)
 	takes = models.ManyToManyField(SubjectList, related_name='takes')
+	designation = models.CharField(max_length=100, null=True, blank=True)
+	joined_at = models.DateField(null=True, blank=True)
+	_created = models.DateTimeField(auto_now_add=True, auto_now=False)
+	_updated = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
 		return self.teacher.__str__()
+
+
+
+# 										staff academic info
+
+class StaffAcademicInfo(models.Model):
+	staff = models.OneToOneField(Staff, on_delete=models.CASCADE, related_name='academic_info', primary_key=True)
+	designation = models.CharField(max_length=100, null=True, blank=True)
+	joined_at = models.DateField(null=True, blank=True)
+	_created = models.DateTimeField(auto_now_add=True, auto_now=False)
+	_updated = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.staff.__str__()
+

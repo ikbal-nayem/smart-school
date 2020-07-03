@@ -43,7 +43,7 @@ class TeacherAttendanceAdmin(admin.ModelAdmin):
 	list_display = ('id', 'teacher', 'is_present', 'date')
 	list_display_links = ('id', 'teacher')
 	search_fields = ('teacher__account__first_name', 'teacher__account__last_name')
-	list_filter = ('date')
+	list_filter = ('date',)
 
 
 

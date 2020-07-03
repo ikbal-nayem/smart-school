@@ -30,7 +30,7 @@ class Accounts(AbstractBaseUser, PermissionsMixin):
 		Teacher = 'teacher'
 		Student = 'student'
 		Staff = 'staff'
-		Parents = 'parents'
+		Gardian = 'gardian'
 	username = models.CharField(max_length=255, primary_key=True)
 	first_name = models.CharField(max_length=150)
 	last_name = models.CharField(max_length=150)
@@ -51,26 +51,6 @@ class Accounts(AbstractBaseUser, PermissionsMixin):
 		return self.get_full_name()
 
 
-# 												Student model
-
-class Student(models.Model):
-	class GENDER(models.TextChoices):
-		Male = 'male'
-		Female = 'female'
-		Others = 'others'
-	account = models.OneToOneField(Accounts, on_delete=models.CASCADE)
-	gender = models.CharField(choices=GENDER.choices, max_length=7, null=True)
-	dob = models.DateField(null=True, blank=True)
-	religion = models.CharField(max_length=100, null=True, blank=True)
-	blood_group = models.CharField(max_length=10, null=True, blank=True)
-	admitted_at = models.DateField(null=True, blank=True)
-	address = models.TextField(null=True, blank=True)
-	email = models.EmailField(null=True, blank=True, unique=True)
-	_created = models.DateTimeField(auto_now_add=True, auto_now=False)
-	_updated = models.DateTimeField(auto_now=True)
-
-	def __str__(self):
-		return self.account.get_full_name()
 
 
 # 												Teacher model
@@ -83,15 +63,13 @@ class Teacher(models.Model):
 		Male = 'male'
 		Female = 'female'
 		Others = 'others'
-	account = models.OneToOneField(Accounts, on_delete=models.CASCADE)
+	account = models.OneToOneField(Accounts, on_delete=models.CASCADE, primary_key=True, related_name='teacher_personal_info')
 	degree = models.CharField(max_length=100, null=True, blank=True)
-	designation = models.CharField(max_length=100, null=True, blank=True)
 	gender = models.CharField(choices=GENDER.choices, max_length=7, null=True)
 	dob = models.DateField(null=True, blank=True)
 	marital_status = models.CharField(max_length=9, choices=MARITAL_STATUS.choices, null=True)
 	religion = models.CharField(max_length=100, null=True, blank=True)
 	blood_group = models.CharField(max_length=10, null=True, blank=True)
-	joined_at = models.DateField(null=True, blank=True)
 	address = models.TextField(null=True, blank=True)
 	email = models.EmailField(null=True, blank=True, unique=True)
 	facebook_url = models.URLField(null=True, blank=True)
@@ -113,15 +91,13 @@ class Staff(models.Model):
 		Male = 'male'
 		Female = 'female'
 		Others = 'others'
-	account = models.OneToOneField(Accounts, on_delete=models.CASCADE)
+	account = models.OneToOneField(Accounts, on_delete=models.CASCADE, primary_key=True, related_name='staff_personal_info')
 	qualification = models.TextField(null=True, blank=True)
-	designation = models.CharField(max_length=100, null=True, blank=True)
 	gender = models.CharField(choices=GENDER.choices, max_length=7, null=True)
 	dob = models.DateField(null=True, blank=True)
 	marital_status = models.CharField(max_length=9, choices=MARITAL_STATUS.choices, null=True)
 	religion = models.CharField(max_length=100, null=True, blank=True)
 	blood_group = models.CharField(max_length=10, null=True, blank=True)
-	joined_at = models.DateField(null=True, blank=True)
 	address = models.TextField(null=True, blank=True)
 	email = models.EmailField(null=True, blank=True, unique=True)
 	facebook_url = models.URLField(null=True, blank=True)
@@ -132,15 +108,14 @@ class Staff(models.Model):
 		return self.account.get_full_name()
 
 
-# 												Parents model
+# 												Gardian model
 
-class Parents(models.Model):
+class Gardian(models.Model):
 	class GENDER(models.TextChoices):
 		Male = 'male'
 		Female = 'female'
 		Others = 'others'
-	account = models.OneToOneField(Accounts, on_delete=models.CASCADE)
-	of = models.ForeignKey(Student, on_delete=models.CASCADE)
+	account = models.OneToOneField(Accounts, on_delete=models.CASCADE, primary_key=True, related_name='gardian_personal_info')
 	occupation = models.CharField(max_length=255, null=True, blank=True)
 	gender = models.CharField(choices=GENDER.choices, max_length=7, null=True)
 	dob = models.DateField(null=True, blank=True)
@@ -156,6 +131,33 @@ class Parents(models.Model):
 
 
 
+
+# 												Student model
+
+class Student(models.Model):
+	class GENDER(models.TextChoices):
+		Male = 'male'
+		Female = 'female'
+		Others = 'others'
+	account = models.OneToOneField(Accounts, on_delete=models.CASCADE, primary_key=True, related_name='student_personal_info')
+	gender = models.CharField(choices=GENDER.choices, max_length=7, null=True)
+	dob = models.DateField(null=True, blank=True)
+	religion = models.CharField(max_length=100, null=True, blank=True)
+	blood_group = models.CharField(max_length=10, null=True, blank=True)
+	admitted_at = models.DateField(null=True, blank=True)
+	address = models.TextField(null=True, blank=True)
+	email = models.EmailField(null=True, blank=True, unique=True)
+	gardian = models.ForeignKey(Gardian, on_delete=models.DO_NOTHING, related_name='student', null=True, blank=True)
+	_created = models.DateTimeField(auto_now_add=True, auto_now=False)
+	_updated = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.account.get_full_name()
+
+
+
+
+
 class PhoneBook(models.Model):
 	account = models.ForeignKey(Accounts, on_delete=models.CASCADE, related_name='phone_numbers')
 	number = models.CharField(max_length=16)
@@ -165,6 +167,9 @@ class PhoneBook(models.Model):
 		return self.account.get_full_name()
 
 
+
+
+# 													pictures
 
 class Pictures(models.Model):
 	account = models.OneToOneField(Accounts, on_delete=models.CASCADE)
@@ -176,7 +181,7 @@ class Pictures(models.Model):
 	thumbnail = ImageSpecField(source='profile',
 								processors=[ResizeToFill(128, 128)],
 								format='JPEG',
-                                options={'quality': 90})
+                options={'quality': 90})
 
 	def save(self, *args, **kwargs):
 		import os
@@ -194,3 +199,14 @@ class Pictures(models.Model):
 	def __str__(self):
 		return self.account.get_full_name()
 
+
+
+
+class LeaveInfo(models.Model):
+	account = models.OneToOneField(Accounts, on_delete=models.CASCADE, primary_key=True)
+	is_left = models.BooleanField(default=False)
+	discription = models.TextField(null=True, blank=True)
+	date = models.DateField(null=True, blank=True)
+
+	def __str__(self):
+		return self.account.get_full_name()

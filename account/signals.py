@@ -7,8 +7,9 @@ from account.models import (
 	Student,
 	Teacher,
 	Staff,
-	Parents,
-	Pictures
+	Gardian,
+	Pictures,
+	LeaveInfo
 )
 User = get_user_model()
 
@@ -17,14 +18,15 @@ User = get_user_model()
 def createAccount(sender, instance, created, **kwargs):
 	if created:
 		Pictures.objects.create(account=instance)
+		LeaveInfo.objects.create(account=instance)
 		if instance.account_type == 'teacher':
 			Teacher.objects.create(account=instance)
 		elif instance.account_type == 'student':
 			Student.objects.create(account=instance)
 		elif instance.account_type == 'staff':
 			Staff.objects.create(account=instance)
-		elif instance.account_type == 'parents':
-			Parents.objects.create(account=instance)
+		elif instance.account_type == 'gardian':
+			Gardian.objects.create(account=instance)
 
 
 

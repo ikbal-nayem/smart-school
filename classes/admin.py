@@ -2,7 +2,8 @@ from django.contrib import admin
 
 from classes.models import (
 	StudentAcademicInfo,
-	TeacherSubjectInfo,
+	TeacherAcademicInfo,
+	StaffAcademicInfo,
 	ClassList,
 	ClassYear,
 	ClassYearInfo,
@@ -19,10 +20,15 @@ class StudentAcademicInfoAdmin(admin.ModelAdmin):
 	search_fields = ('student__account__first_name', 'student__account__last_name', 'roll')
 	list_filter = ('class_id__class_code', 'class_id__info__group')
 
-class TeacherSubjectInfoAdmin(admin.ModelAdmin):
-	list_display = ('id', 'teacher')
-	list_display_links = ('id', 'teacher')
+class TeacherAcademicInfoAdmin(admin.ModelAdmin):
+	list_display = ('pk', '__str__', 'designation')
+	list_display_links = ('pk', '__str__')
 	search_fields = ('teacher__account__first_name', 'teacher__account__last_name')
+
+class StaffAcademicInfoAdmin(admin.ModelAdmin):
+	list_display = ('pk', '__str__', 'designation')
+	list_display_links = ('pk', '__str__')
+	search_fields = ('staff__account__first_name', 'staff__account__last_name')
 
 class ClassListAdmin(admin.ModelAdmin):
 	list_display = ('code', 'name')
@@ -56,7 +62,8 @@ class SectionsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(StudentAcademicInfo, StudentAcademicInfoAdmin)
-admin.site.register(TeacherSubjectInfo, TeacherSubjectInfoAdmin)
+admin.site.register(TeacherAcademicInfo, TeacherAcademicInfoAdmin)
+admin.site.register(StaffAcademicInfo, TeacherAcademicInfoAdmin)
 admin.site.register(ClassList, ClassListAdmin)
 admin.site.register(ClassYear, ClassYearAdmin)
 admin.site.register(ClassYearInfo, ClassYearInfoAdmin)

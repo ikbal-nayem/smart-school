@@ -5,7 +5,7 @@ from account.models import (
 	Student,
 	Teacher,
 	Staff,
-	Gardian,
+	Guardian,
 	PhoneBook,
 	Pictures,
 	LeaveInfo
@@ -27,6 +27,7 @@ class StudentAdmin(admin.ModelAdmin):
 	list_display = ('pk', '__str__', 'address', 'admitted_at')
 	list_display_links = ('pk', '__str__',)
 	search_fields = ['account__first_name', 'account__last_name']
+	list_filter = ['academic_info__class_id__class_code', 'academic_info__session']
 
 class StaffAdmin(admin.ModelAdmin):
 	list_display = ('pk', '__str__', 'email')
@@ -34,8 +35,8 @@ class StaffAdmin(admin.ModelAdmin):
 	list_filter = ('account__is_admin',)
 	search_fields = ['account__first_name', 'account__last_name']
 
-class GardianAdmin(admin.ModelAdmin):
-	list_display = ('pk', '__str__', 'email', 'student')
+class GuardianAdmin(admin.ModelAdmin):
+	list_display = ('pk', '__str__', 'email')
 	list_display_links = ('pk', '__str__', 'email')
 	search_fields = ['account__first_name', 'account__last_name']
 
@@ -62,7 +63,7 @@ admin.site.register(Accounts, AccountAdmin)
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Teacher, TeacherAdmin)
 admin.site.register(Staff, StaffAdmin)
-admin.site.register(Gardian, GardianAdmin)
+admin.site.register(Guardian, GuardianAdmin)
 admin.site.register(PhoneBook, PhoneBookAdmin)
 admin.site.register(Pictures, PictureAdmin)
 admin.site.register(LeaveInfo, LeaveInfoAdmin)

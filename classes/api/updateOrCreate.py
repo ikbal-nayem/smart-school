@@ -2,18 +2,23 @@ from rest_framework.response import Response
 
 
 from classes.api.serializer import (
-	StudentAcademicInfoSerializer
+	StudentAcademicInfoSerializer,
+	TeacherAcademicInfoSerializer,
+	StaffAcademicInfoSerializer
 )
 from classes.models import (
 	Groups,
 	ClassYear,
-	StudentAcademicInfo
+	SubjectList,
+	StudentAcademicInfo,
+	TeacherAcademicInfo,
+	StaffAcademicInfo
 )
 
 
 
 
-def createStudentAcademicInfo(student, data, action='update'):
+def update_StudentAcademicInfo(student, data, action='update'):
 
 	def update(obj, data):
 		obj.class_id = ClassYear.objects.filter(class_code__code=data['class_code'], year=data['session'], shift__name=data['shift']).first()
@@ -35,14 +40,49 @@ def createStudentAcademicInfo(student, data, action='update'):
 	elif action == 'update':
 		if data.get('id'):
 			obj = StudentAcademicInfo.objects.get(id=data['id'])
-			academic_data = update(obj, data).save()
-			return StudentAcademicInfoSerializer(academic_data).data
 		else:
 			''' if 'session' does not exists then create new AcademicInfo instance for the student '''
-
 			obj = StudentAcademicInfo.objects.filter(student=student, session=data['session'])
 			obj = obj.first() if obj.exists() else StudentAcademicInfo(student=student)
-			academic_data = update(obj, data).save()
-			print(academic_data)
-			return StudentAcademicInfoSerializer(academic_data).data
+
+		academic_data = new = update(obj, data)
+		new.save()
+		return StudentAcademicInfoSerializer(academic_data).data
+
+
+
+
+# 								teacher academic info
+
+def update_TeacherAcademicInfo(teacher, data):
+	teacher = TeacherAcademicInfo.objects.get(teacher=teacher)
+	try:
+		if data.get('takes'):
+			for sub in teacher.takes.all():
+				teacher.takes.remove(sub)
+			for new in data.pop('takes'):
+				teacher.takes.add(SubjectList.objects.get(id=new))
+	except Exception as e:
+		return {'is_valid': False, 'errors': {'academic_info':{'takes': [str(e)]}}}
+	serializer = TeacherAcademicInfoSerializer(teacher, data=data)
+	if serializer.is_valid():
+		serializer.save()
+		return {'is_valid': True, 'validated_data':serializer.data}
+	return {'is_valid':False, 'errors': serializer.errors}
+
+
+
+
+
+# 								staff academic info
+
+def update_StaffAcademicInfo(staff, data):
+	staff = StaffAcademicInfo.objects.get(staff=staff)
+	serializer = StaffAcademicInfoSerializer(staff, data=data, partial=True)
+	if serializer.is_valid():
+		serializer.save()
+		return {'is_valid': True, 'validated_data':serializer.data}
+	return {'is_valid':False, 'errors': serializer.errors}
+
+
 

@@ -7,7 +7,7 @@ from account.models import (
 	Student,
 	Teacher,
 	Staff,
-	Gardian,
+	Guardian,
 	Pictures,
 	LeaveInfo
 )
@@ -25,8 +25,8 @@ def createAccount(sender, instance, created, **kwargs):
 			Student.objects.create(account=instance)
 		elif instance.account_type == 'staff':
 			Staff.objects.create(account=instance)
-		elif instance.account_type == 'gardian':
-			Gardian.objects.create(account=instance)
+		elif instance.account_type == 'guardian':
+			Guardian.objects.create(account=instance)
 
 
 

@@ -1,5 +1,5 @@
 from django.db import models
-from account.models import Student, Teacher, Staff, Gardian
+from account.models import Student, Teacher, Staff
 import datetime
 
 
@@ -23,7 +23,9 @@ class Shifts(models.Model):
 		return self.name
 
 
+
 # 									class list
+
 class ClassList(models.Model):
 	CLASS_CODE = (('i','i'), ('ii', 'ii'), ('iii','iii'), ('iv','iv'), ('v','v'), ('vi','vi'), ('vii','vii'), ('viii','viii'), ('ix','ix'), ('x','x'), ('xi','xi'), ('xii','xii'))
 	code = models.CharField(choices=CLASS_CODE, max_length=4, primary_key=True)
@@ -33,7 +35,9 @@ class ClassList(models.Model):
 		return f'{self.code}'
 
 
+
 # 									subject list
+
 class SubjectList(models.Model):
 	code = models.CharField(max_length=50, unique=True)
 	name = models.CharField(max_length=255)
@@ -46,7 +50,9 @@ class SubjectList(models.Model):
 		return self.code
 
 
+
 # 									year-wise class
+
 class ClassYear(models.Model):
 	class ATTENDANCE_TYPE(models.TextChoices):
 		Per_day = 'per day'
@@ -65,7 +71,7 @@ class ClassYear(models.Model):
 
 class ClassYearInfo(models.Model):
 	class_id = models.ForeignKey(ClassYear, on_delete=models.CASCADE, related_name='info')
-	group = models.ForeignKey(Groups, on_delete=models.DO_NOTHING, related_name='class_year', null=True, blank=True)
+	group = models.ForeignKey(Groups, on_delete=models.SET_NULL, related_name='class_year', null=True, blank=True)
 	subjects = models.ManyToManyField(SubjectList, related_name='class_year')
 
 	def __str__(self):
@@ -74,10 +80,11 @@ class ClassYearInfo(models.Model):
 
 
 #									year-wise sections
+
 class Sections(models.Model):
 	name = models.CharField(max_length=50)
 	class_info = models.ForeignKey(ClassYearInfo, on_delete=models.CASCADE, related_name='sections')
-	class_teacher = models.ForeignKey(Teacher, on_delete=models.DO_NOTHING, related_name='sections', null=True)
+	class_teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, related_name='sections', null=True)
 	_created = models.DateTimeField(auto_now_add=True, auto_now=False)
 	_updated = models.DateTimeField(auto_now=True)
 
@@ -91,8 +98,8 @@ class Sections(models.Model):
 
 class StudentAcademicInfo(models.Model):
 	student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='academic_info')
-	class_id = models.ForeignKey(ClassYear, on_delete=models.DO_NOTHING, related_name='students', null=True)
-	group = models.ForeignKey(Groups, on_delete=models.DO_NOTHING, related_name='students', null=True, blank=True)
+	class_id = models.ForeignKey(ClassYear, on_delete=models.SET_NULL, related_name='students', null=True)
+	group = models.ForeignKey(Groups, on_delete=models.SET_NULL, related_name='students', null=True, blank=True)
 	section = models.CharField(max_length=10, null=True)
 	roll = models.IntegerField(null=True)
 	session = models.IntegerField(default=datetime.date.today().year)

@@ -30,11 +30,11 @@ class Accounts(AbstractBaseUser, PermissionsMixin):
 		Teacher = 'teacher'
 		Student = 'student'
 		Staff = 'staff'
-		Gardian = 'gardian'
+		Guardian = 'guardian'
 	username = models.CharField(max_length=255, primary_key=True)
 	first_name = models.CharField(max_length=150)
 	last_name = models.CharField(max_length=150)
-	account_type = models.CharField(choices=ACCOUNT_TYPE.choices, max_length=7)
+	account_type = models.CharField(choices=ACCOUNT_TYPE.choices, max_length=8)
 	is_active = models.BooleanField(default=True)
 	is_staff = models.BooleanField(default=False)
 	is_admin = models.BooleanField(default=False)
@@ -108,14 +108,14 @@ class Staff(models.Model):
 		return self.account.get_full_name()
 
 
-# 												Gardian model
+# 												Guardian model
 
-class Gardian(models.Model):
+class Guardian(models.Model):
 	class GENDER(models.TextChoices):
 		Male = 'male'
 		Female = 'female'
 		Others = 'others'
-	account = models.OneToOneField(Accounts, on_delete=models.CASCADE, primary_key=True, related_name='gardian_personal_info')
+	account = models.OneToOneField(Accounts, on_delete=models.CASCADE, primary_key=True, related_name='guardian_personal_info')
 	occupation = models.CharField(max_length=255, null=True, blank=True)
 	gender = models.CharField(choices=GENDER.choices, max_length=7, null=True)
 	dob = models.DateField(null=True, blank=True)
@@ -147,7 +147,7 @@ class Student(models.Model):
 	admitted_at = models.DateField(null=True, blank=True)
 	address = models.TextField(null=True, blank=True)
 	email = models.EmailField(null=True, blank=True, unique=True)
-	gardian = models.ForeignKey(Gardian, on_delete=models.DO_NOTHING, related_name='student', null=True, blank=True)
+	guardian = models.ForeignKey(Guardian, on_delete=models.SET_NULL, related_name='students', null=True, blank=True)
 	_created = models.DateTimeField(auto_now_add=True, auto_now=False)
 	_updated = models.DateTimeField(auto_now=True)
 
@@ -204,8 +204,8 @@ class Pictures(models.Model):
 
 class LeaveInfo(models.Model):
 	account = models.OneToOneField(Accounts, on_delete=models.CASCADE, primary_key=True)
-	is_left = models.BooleanField(default=False)
-	discription = models.TextField(null=True, blank=True)
+	is_left = models.BooleanField(default=False, null=True)
+	description = models.TextField(null=True, blank=True)
 	date = models.DateField(null=True, blank=True)
 
 	def __str__(self):

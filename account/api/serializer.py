@@ -13,9 +13,10 @@ from account.models import (
 	Student,
 	Teacher,
 	Staff,
-	Gardian,
+	Guardian,
 	Pictures,
-	PhoneBook
+	PhoneBook,
+	LeaveInfo
 )
 
 
@@ -56,7 +57,7 @@ class AccountListSerializer(serializers.ModelSerializer):
 			return StaffAcademicInfoSerializer(obj.staff_personal_info.academic_info).data
 		else:
 			li = []
-			for stu in obj.gardian_personal_info.student.all():
+			for stu in obj.guardian_personal_info.students.all():
 				li.append({'username': stu.account.username, 'first_name': stu.account.first_name, 'last_name':stu.account.last_name})
 			return {'students': li}
 
@@ -75,27 +76,25 @@ class StaffSerializer(serializers.ModelSerializer):
 		model = Staff
 		exclude = ['account', '_created', '_updated']
 
-class GardianSerializer(serializers.ModelSerializer):
+class GuardianSerializer(serializers.ModelSerializer):
 	class Meta:
-		model = Gardian
+		model = Guardian
 		exclude = ['account', '_created', '_updated']
 
 class StudentSerializer(serializers.ModelSerializer):
-	gardian = serializers.SerializerMethodField(read_only=True)
+	guardian = serializers.SerializerMethodField(read_only=True)
 	class Meta:
 		model = Student
 		exclude = ['account', '_created', '_updated']
 
-	def get_gardian(self, obj):
-		try:
-			if obj.gardian:
-				return {
-					'name': obj.gardian.__str__(),
-					'username': obj.gardian.account.username,
-					'phone_numbers': obj.gardian.account.phone_numbers.all()
-					}
-		except:
-			return None
+	def get_guardian(self, obj):
+		if obj.guardian:
+			return {
+				'name': obj.guardian.__str__(),
+				'username': obj.guardian.account.username,
+				'phone_numbers': PhoneBook(obj.guardian.account.phone_numbers.all(), many=True).data,
+				'email': obj.guardian.email
+				}
 
 
 
@@ -179,20 +178,28 @@ class StaffDetailSerializer(WritableNestedModelSerializer):
 
 
 
-# 												Gardian detail
+# 												Guardian detail
 
-class GardianDetailSerializer(WritableNestedModelSerializer):
-	gardian_personal_info = GardianSerializer()
+class GuardianDetailSerializer(WritableNestedModelSerializer):
+	guardian_personal_info = GuardianSerializer()
 	pictures = PictureSerializer()
 	phone_numbers = PhoneBook(many=True)
-	is_left = serializers.SerializerMethodField()
+	academic_info = serializers.SerializerMethodField()
 	class Meta:
 		model = Accounts
-		fields = ['username', 'first_name', 'last_name', 'account_type', 'is_left', 'gardian_personal_info', 'pictures', 'phone_numbers']
-		read_only_fields = ['username', 'is_left']
+		fields = ['username', 'first_name', 'last_name', 'account_type', 'guardian_personal_info', 'academic_info', 'pictures', 'phone_numbers']
+		read_only_fields = ['username', 'academic_info']
 
 	def get_academic_info(self, obj):
 		li = []
-		for stu in obj.gardian_personal_info.student.all():
+		for stu in obj.guardian_personal_info.students.all():
 			li.append({'username': stu.account.username, 'first_name': stu.account.first_name, 'last_name':stu.account.last_name})
 		return {'students': li}
+
+
+
+# 												leave information
+class LeaveInfoSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = LeaveInfo
+		exclude = ['account']

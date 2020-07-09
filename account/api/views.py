@@ -4,27 +4,37 @@ from rest_framework.response import Response
 
 from account.models import (
 	Accounts,
+	LeaveInfo
 )
-from .serializer import (
+from account.api.serializer import (
 	AccountListSerializer,
 	StudentDetailSerializer,
 	TeacherDetailSerializer,
 	StaffDetailSerializer,
-	GardianDetailSerializer
+	GuardianDetailSerializer,
+	LeaveInfoSerializer
 )
-from .updateOrCreate import (
+from account.api.updateOrCreate import (
 	update_student,
-	create_student
+	update_teacher,
+	update_staff,
+	update_guardian,
+	create_student,
+	create_teacher,
+	create_staff,
+	create_guardian
 )
+from classes.api.serializer import TeacherAcademicInfoSerializer
 
 
 class AccountSerilizerView(ViewSet):
 
 
 	def list(self, request, account_type):
-		queryset = queryset = Accounts.objects.filter(account_type=account_type)
+		queryset = Accounts.objects.filter(account_type=account_type)
 		context = {'request': request}
-		if account_type == 'student':
+
+		if account_type == 'student':			#student
 			year = request.GET.get('year') or datetime.date.today().year
 			try:
 				int(year)
@@ -32,13 +42,15 @@ class AccountSerilizerView(ViewSet):
 				return Response({'error': 'invalid value for year'})
 			queryset = queryset.filter(student_personal_info__academic_info__session=year)
 			context['year'] = year
-		elif account_type == 'teacher':
+
+		elif account_type == 'teacher':			#teacher
 			status = request.GET.get('status') or 'present'
 			if status == 'present':
 				queryset = queryset.filter(leaveinfo__is_left=False)
 			else:
 				queryset = queryset.filter(leaveinfo__is_left=True) if status == 'quit' else queryset.filter()
-		elif account_type == 'staff':
+
+		elif account_type == 'staff':			#staff
 			status = request.GET.get('status') or 'present'
 			if status == 'present':
 				queryset = queryset.filter(leaveinfo__is_left=False)
@@ -56,13 +68,11 @@ class AccountSerilizerView(ViewSet):
 			if account_type == 'student':
 				serialized = StudentDetailSerializer(queryset[0], context={'request': request})
 			elif account_type == 'teacher':
-				serialized = TeacherDetailSerializer(queryset[0])
+				serialized = TeacherDetailSerializer(queryset[0], context={'request': request})
 			elif account_type == 'staff':
-				serialized = StaffDetailSerializer(queryset[0])
-			elif account_type == 'gardian':
-				serialized = GardianDetailSerializer(queryset[0])
-			else:
-				serialized.data['error'] = 'account not found'
+				serialized = StaffDetailSerializer(queryset[0], context={'request': request})
+			elif account_type == 'guardian':
+				serialized = GuardianDetailSerializer(queryset[0], context={'request': request})
 			return Response(serialized.data)
 		else:
 			return Response({'error': 'account not found'})
@@ -73,7 +83,16 @@ class AccountSerilizerView(ViewSet):
 		queryset = Accounts.objects.filter(username=username, account_type=account_type)
 		if queryset.exists():
 			if account_type == 'student':
-				return update_student(queryset.first(), request.data, context={'request': request})
+				return update_student(queryset.first(), data=request.data)
+
+			elif account_type == 'teacher':
+				return update_teacher(queryset.first(), data=request.data)
+
+			elif account_type == 'staff':
+				return update_staff(queryset.first(), data=request.data)
+
+			elif account_type == 'guardian':
+				return update_guardian(queryset.first(), data=request.data)
 		return Response({'error': 'account not found'})
 
 
@@ -81,9 +100,39 @@ class AccountSerilizerView(ViewSet):
 	def create(self, request, account_type):
 		if account_type == 'student':
 			return create_student(request.data)
+		elif account_type == 'teacher':
+			return create_teacher(request.data)
+		elif account_type == 'staff':
+			return create_staff(request.data)
+		elif account_type == 'guardian':
+			return create_guardian(request.data)
+		else:
+			return Response({'error': 'Invalid account-type'})
+
+
+
+	def destroy(self, request, account_type, username):
+		account = Accounts.objects.filter(username=username)
+		if account.exists():
+			account.first().delete()
+			return Response({'success': True})
+		return Response({'success': False, 'error': 'Account does not exists.'})
 
 
 
 
 
+class LeaveInfoView(ViewSet):
 
+	def retrieve(self, request, account_type, username):
+		queryset = LeaveInfo.objects.get(account__username=username)
+		serializer = LeaveInfoSerializer(queryset)
+		return Response(serializer.data)
+
+	def update(self, request, account_type, username):
+		obj = LeaveInfo.objects.get(account__username=username)
+		serializer = LeaveInfoSerializer(obj, request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.validated_data)
+		return Response(serializer.errors)

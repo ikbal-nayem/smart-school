@@ -13,7 +13,7 @@ class ExamTypes(models.Model):
 
 
 class Exam(models.Model):
-	exam_type = models.ForeignKey(ExamTypes, on_delete=models.DO_NOTHING, related_name='exam')
+	exam_type = models.ForeignKey(ExamTypes, on_delete=models.SET_NULL, null=True, related_name='exam')
 	class_info = models.ForeignKey(ClassYearInfo, on_delete=models.CASCADE, related_name='exam')
 	exam_start_date = models.DateField()
 	exam_end_date = models.DateField()
@@ -21,8 +21,8 @@ class Exam(models.Model):
 	full_mark = models.PositiveIntegerField()
 	pass_number = models.PositiveSmallIntegerField()
 	year = models.PositiveIntegerField(default=datetime.date.today().year)
-	created_by = models.ForeignKey(Accounts, on_delete=models.DO_NOTHING, related_name='exam_created')
-	updated_by = models.ForeignKey(Accounts, on_delete=models.DO_NOTHING, related_name='exam_updated')
+	created_by = models.ForeignKey(Accounts, on_delete=models.SET_NULL, null=True, related_name='exam_created')
+	updated_by = models.ForeignKey(Accounts, on_delete=models.SET_NULL, null=True, related_name='exam_updated')
 	_created = models.DateTimeField(auto_now_add=True, auto_now=False)
 	_updated = models.DateTimeField(auto_now=True)
 
@@ -32,7 +32,7 @@ class Exam(models.Model):
 
 class ExamRoutine(models.Model):
 	exam_id = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name='exam_routine')
-	subject = models.ForeignKey(SubjectList, on_delete=models.DO_NOTHING, related_name='exam_routine')
+	subject = models.ForeignKey(SubjectList, on_delete=models.SET_NULL, related_name='exam_routine', null=True)
 	date = models.DateField()
 	time = models.TimeField()
 
@@ -45,8 +45,8 @@ class ClassTest(models.Model):
 	section = models.ForeignKey(Sections, on_delete=models.CASCADE)
 	date = models.DateField()
 	time = models.TimeField(null=True, blank=True)
-	subject = models.ForeignKey(SubjectList, on_delete=models.DO_NOTHING)
-	teacher = models.ForeignKey(Teacher, on_delete=models.DO_NOTHING, related_name='class_test')
+	subject = models.ForeignKey(SubjectList, on_delete=models.SET_NULL, null=True)
+	teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True, related_name='class_test')
 	marks = models.PositiveSmallIntegerField()
 
 	def __str__(self):

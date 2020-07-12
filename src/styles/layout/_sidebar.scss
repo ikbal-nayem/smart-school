@@ -61,12 +61,12 @@ ul.nav-menu li.menu {
   }
   & .sub-menu {
     max-height: 0;
-    transition: max-height 0.15s ease-out;
+    transition: max-height 0.4s ease-out;
     overflow: hidden;
   }
   &.open > .sub-menu {
     max-height: 1500px;
-    transition: max-height 0.25s ease-in;
+    transition: max-height 0.5s ease-in;
   }
 
   &.open {

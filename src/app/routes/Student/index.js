@@ -1,18 +1,25 @@
 import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import asyncComponent from 'util/asyncComponent';
+import Profile from 'components/Profile';
 
-import StudentTable from './components/StudentTable'
 
-class Student extends React.Component {
-
+class StudentRoute extends React.Component {
+	
 	render() {
+		const {match} = this.props
 		return (
-			<div className="app-wrapper">
-				<div className="animated slideInUpTiny animation-duration-4">
-					<StudentTable />
-				</div>
-			</div>
+			<Switch>
+				<Redirect exact from={`${match.url}`} to={`${match.url}/all`} />
+
+				<Route path={`${match.url}/all`} component={asyncComponent(()=>import('./routes/AllStudent'))} />
+				<Route path={`${match.url}/add`} component={asyncComponent(()=>import('./routes/AddStudent'))} />
+				<Route path={`${match.url}/:username`} render={params=><Profile {...params} account_type='student'/>} />
+			
+				<Route component={asyncComponent(() => import("../extraPages/routes/404"))}/>
+			</Switch>
 		);
 	}
 }
 
-export default Student;
+export default StudentRoute;

@@ -3,12 +3,15 @@ import {NavLink, withRouter} from 'react-router-dom';
 
 import IntlMessages from 'util/IntlMessages';
 import CustomScrollbars from 'util/CustomScrollbars';
+import Button from '@material-ui/core/Button';
 
 import {
   Dashboard,
-  SchoolRounded,
+  RecentActors,
   PeopleAltRounded,
-  PeopleOutlineRounded
+  PeopleOutlineRounded,
+  PersonAdd,
+  LocalLibrary
 } from '@material-ui/icons';
 
 class SidenavContent extends Component {
@@ -111,32 +114,84 @@ class SidenavContent extends Component {
       <CustomScrollbars className="scrollbar">
         <ul className="nav-menu">
 
-          <li className="nav-header">
-            <IntlMessages id="sidebar.main"/>
-          </li>
-          <li className="menu no-arrow">
+                                          {/*dashboard*/}
+          <li className="menu no-arrow animated zoomInDown animation-duration-3">
             <NavLink to="/dashboard">
               <Dashboard fontSize="large" style={styles.icon_padding} />
               <span className="nav-text"><IntlMessages id="sidebar.dashboard"/></span>
             </NavLink>
           </li>
-          <li className="menu no-arrow">
-            <NavLink to="/student">
-              <SchoolRounded fontSize="large" style={styles.icon_padding} />
-              <span className="nav-text"> <IntlMessages id="sidebar.student"/></span>
-            </NavLink>
+
+                                          {/* student */}
+          <li className="menu collapse-box animated zoomInDown animation-duration-4">
+            <Button>
+              <LocalLibrary fontSize="large" style={styles.icon_padding} />
+              <span className="nav-text">
+                <IntlMessages id="sidebar.student"/>
+              </span>
+            </Button>
+            <ul className="sub-menu">
+              <li className="animated zoomInDown">
+                <NavLink className="prepend-icon" to="/student/all">
+                  <RecentActors style={styles.icon_padding} />
+                  <span className="nav-text"><IntlMessages id="sidebar.student.all"/></span>
+                </NavLink>
+              </li>
+              <li className="animated zoomInDown">
+                <NavLink className="prepend-icon" to="/student/add">
+                <PersonAdd style={styles.icon_padding} />
+                  <span className="nav-text"><IntlMessages id="sidebar.student.add"/></span>
+                </NavLink>
+              </li>
+            </ul>
           </li>
-          <li className="menu no-arrow">
-            <NavLink to="/teacher">
+
+                                            {/*teacher*/}
+          <li className="menu no-arrow animated zoomInDown animation-duration-5">
+            <Button>
               <PeopleAltRounded fontSize="large" style={styles.icon_padding} />
-              <span className="nav-text"> <IntlMessages id="sidebar.teacher"/></span>
-            </NavLink>
+              <span className="nav-text">
+                <IntlMessages id="sidebar.teacher"/>
+              </span>
+            </Button>
+            <ul className="sub-menu">
+              <li className="animated zoomInDown">
+                <NavLink to="/teacher/all">
+                  <PeopleAltRounded style={styles.icon_padding} />
+                  <span className="nav-text"> <IntlMessages id="sidebar.teacher.all"/></span>
+                </NavLink>
+              </li>
+              <li className="animated zoomInDown">
+                <NavLink className="prepend-icon" to="/teacher/add">
+                <PersonAdd style={styles.icon_padding} />
+                  <span className="nav-text"><IntlMessages id="sidebar.teacher.add"/></span>
+                </NavLink>
+              </li>
+            </ul>
           </li>
-          <li className="menu no-arrow">
-            <NavLink to="/staff">
+
+                                            {/*staff*/}
+          <li className="menu no-arrow animated zoomInDown animation-duration-6">
+            <Button>
               <PeopleOutlineRounded fontSize="large" style={styles.icon_padding} />
-              <span className="nav-text"> <IntlMessages id="sidebar.staff"/></span>
-            </NavLink>
+              <span className="nav-text">
+                <IntlMessages id="sidebar.staff"/>
+              </span>
+            </Button>
+            <ul className="sub-menu">
+              <li className="animated zoomInDown">
+                <NavLink to="/staff/all">
+                  <PeopleOutlineRounded style={styles.icon_padding} />
+                  <span className="nav-text"> <IntlMessages id="sidebar.staff.all"/></span>
+                </NavLink>
+              </li>
+              <li className="animated zoomInDown">
+                <NavLink className="prepend-icon" to="/staff/add">
+                <PersonAdd style={styles.icon_padding} />
+                  <span className="nav-text"><IntlMessages id="sidebar.staff.add"/></span>
+                </NavLink>
+              </li>
+            </ul>
           </li>
 
         </ul>

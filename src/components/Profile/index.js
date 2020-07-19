@@ -3,6 +3,8 @@ import StudentProfile from './Student';
 import TeacherProfile from './Teacher';
 import StaffProfile from './Staff';
 
+import './style.css'
+
 
 class Profile extends React.Component {
 	constructor(props){

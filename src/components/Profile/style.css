@@ -1,0 +1,24 @@
+.extend-button{
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.class-info {
+    overflow: scroll;
+    overflow-y: hidden;
+}
+.class-info::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+.class-info-card{
+	margin-right: 8px;
+	min-width: 80px;
+	transition: all 0.3s;
+	cursor: pointer;
+}
+.class-info-card:hover {
+	transform: scaleY(1.05);
+}

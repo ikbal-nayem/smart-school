@@ -74,7 +74,7 @@ $gray-500: #8A92A5;
 // $app-primary:   #3f51b5 !default;
 $app-primary:   #004346 !default;
 $primary:       $app-primary;
-$secondary:     #E91E63;
+$secondary:     #616161;
 $success:       #4caf50;
 $info:          #00bcd4;
 $warning:       #ff9800;
@@ -82,9 +82,9 @@ $danger:        #f44336;
 $light:         #e8eaf6;
 $light-gray:    #808080;
 $dark:          $gray-800;
-$gray-default: #808080 !default;
-$sepia: #7c3535;
-$geekblue: #030852;
+$gray-default:  #808080 !default;
+$sepia:         #7c3535;
+$geekblue:      #030852;
 
 $theme-colors: ();
 // stylelint-disable-next-line scss/dollar-variable-default

@@ -1,18 +1,18 @@
-import indigo from '@material-ui/core/colors/indigo';
-import pink from '@material-ui/core/colors/pink';
+// import indigo from '@material-ui/core/colors/indigo';
+// import pink from '@material-ui/core/colors/pink';
 
 export default {
   palette: {
     primary: {
-      light: indigo[300],
-      main: indigo[500],
-      dark: indigo[700],
-      contrastText: '#fff'
+      light: '#9fdac7',
+      main: '#004346',
+      dark: '#28938e',
+      contrastText: '#eceff1'
     },
     secondary: {
-      light: pink[300],
-      main: pink['A200'],
-      dark: pink[700],
+      light: '#616161',
+      main: '#8e8e8e',
+      dark: '#373737',
       contrastText: '#fff'
     }
   },

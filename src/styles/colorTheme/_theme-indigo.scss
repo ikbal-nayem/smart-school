@@ -1,6 +1,9 @@
 /*Theme Indigo Styles*/
-$app-primary-indigo: #3f51b5 !default;
-$secondary-indigo: #FF4081;
+// $app-primary-indigo: #3f51b5 !default;
+// $secondary-indigo: #FF4081;
+
+$app-primary-indigo: #004346 !default;
+$secondary-indigo: #8e8e8e;
 
 $sidebar-indigo: rgba($app-primary-indigo, 0.25) !default;
 $sidebar-text-indigo: #868e96 !default;
@@ -65,51 +68,51 @@ $sidebar-text-indigo: #868e96 !default;
 
   & .bg-primary {
     &.lighten-4 {
-      background-color: #c5cae9 !important;
+      background-color: #c5e9dd !important;
     }
 
     &.lighten-3 {
-      background-color: #9fa8da !important;
+      background-color: #9fdac7 !important;
     }
 
     &.lighten-2 {
-      background-color: #7986cb !important;
+      background-color: #79cbb0 !important;
     }
 
     &.lighten-1 {
-      background-color: #5c6bc0 !important;
+      background-color: #5cc0b3 !important;
     }
 
     &.darken-1 {
-      background-color: #3949ab !important;
+      background-color: #39ab9a !important;
     }
 
     &.darken-2 {
-      background-color: #303f9f !important;
+      background-color: #309e9f !important;
     }
 
     &.darken-3 {
-      background-color: #283593 !important;
+      background-color: #28938e !important;
     }
 
     &.darken-4 {
-      background-color: #1a237e !important;
+      background-color: #1a7e75 !important;
     }
 
     &.accent-1 {
-      background-color: #8c9eff !important;
+      background-color: #8cffda !important;
     }
 
     &.accent-2 {
-      background-color: #536dfe !important;
+      background-color: #53fed1 !important;
     }
 
     &.accent-3 {
-      background-color: #3d5afe !important;
+      background-color: #18ffc6 !important;
     }
 
     &.accent-4 {
-      background-color: #304ffe !important;
+      background-color: #00eebd !important;
     }
   }
 }

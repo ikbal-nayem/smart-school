@@ -1,12 +1,12 @@
 const date = new Date()
 
-export const init_data = {
+const init_data = {
     "first_name": null,
     "last_name": null,
-    "account_type": null,
+    "account_type": 'student',
     "student_personal_info": {
         "guardian": null,
-        "guardian relation": null,
+        "guardian_relation": null,
         "gender": null,
         "dob": null,
         "religion": null,
@@ -31,4 +31,27 @@ export const init_data = {
     "pictures": {
         "profile": null,
     },
+}
+
+const g_init_data = {
+    "first_name": null,
+    "last_name": null,
+    "account_type": 'guardian',
+    "guardian_personal_info": {
+        "occupation": null,
+        "gender": null,
+        "email": null
+    },
+    "phone_numbers": [
+        {
+            "number": null
+        }
+    ]
+}
+
+
+
+export {
+    init_data,
+    g_init_data
 }

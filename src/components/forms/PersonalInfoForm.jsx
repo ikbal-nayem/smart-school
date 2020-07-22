@@ -181,14 +181,17 @@ const PersonalInfoForm =({init_data, setNewData})=>{
 				</div>
 
 
-				<div>
-					<TextField
-						id="email"
-						label="Email"
-						value={init_data.student_personal_info.email}
-						onChange={handleChange}
-						className='mb-3'
-					/>
+				<div className="row m-0">
+					<div className="col-sm-8 col-12 p-0">
+						<TextField
+							id="email"
+							label="Email"
+							value={init_data.student_personal_info.email}
+							onChange={handleChange}
+							className='mb-3'
+							fullWidth
+						/>
+					</div>
 				</div>
 				<div>
 					<TextField

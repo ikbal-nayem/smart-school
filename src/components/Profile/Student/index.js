@@ -29,7 +29,7 @@ class StudentProfile extends React.Component{
 				<div className="col-xl-4 col-lg-4 col-md-4 col-12" style={{paddingRight:8}}>
 					<AcademicInfo academic_info={this.state.academic_info}/>
 					<Information data={this.state.data}/>
-					<Guardian />
+					<Guardian data={this.state.data.student_personal_info.guardian} />
 				</div>
 				<div className="col-xl-8 col-lg-8 col-md-8 col-12" style={{paddingLeft:8, paddingRight:8}}>
 					<ClassInfo academic_info={this.state.academic_info} changeClass={this.onClassChange} />

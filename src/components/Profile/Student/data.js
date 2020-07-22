@@ -5,8 +5,9 @@ const data1 = {
     "account_type": "student",
     "is_left": false,
     "student_personal_info": {
-        "gardian": {
-            "name": "<gardian-full_name>",
+        "guardian": {
+            "first_name": "Guardian",
+            "last_name": "Name",
             "username": "<username>",
             "phone_numbers": [
                 {
@@ -14,7 +15,8 @@ const data1 = {
                     "number": "123"
                 }
             ],
-            "email": "example@email.com"
+            "email": "example@email.com",
+            "gender": "male",
         },
         "gender": "male",
         "dob": null,

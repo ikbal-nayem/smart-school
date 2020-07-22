@@ -118,9 +118,9 @@ class StudentDetailSerializer(WritableNestedModelSerializer):
 
 	def get_academic_info(self, obj):
 		class_list, session_list, academic_info = [], [], {}
-		all_class = obj.student_personal_info.academic_info.all().order_by('-session')
+		all_class = obj.student_personal_info.academic_info.all().order_by('session')
 		try:
-			class_code = self.context['request'].GET.get('class') or all_class.first().class_id.class_code.code
+			class_code = self.context['request'].GET.get('class') or all_class.last().class_id.class_code.code
 		except:
 			return None
 		for classes in all_class:

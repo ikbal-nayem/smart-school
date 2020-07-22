@@ -7,10 +7,13 @@ import {
 	InputAdornment,
 	IconButton
 } from '@material-ui/core';
+
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 
 
-const PersonalInfoForm =({init_data, setNewData})=>{
+const TeacherPersonalInfoForm =({init_data, setNewData})=>{
 
 	const handleChange = (event) => {
 		const exceptional = ['first_name', 'last_name', 'phone_numbers', 'pictures']
@@ -18,8 +21,8 @@ const PersonalInfoForm =({init_data, setNewData})=>{
 		if(exceptional.indexOf(name) === -1){
 			setNewData({
 				...init_data,
-				student_personal_info: {
-					...init_data.student_personal_info,
+				teacher_personal_info: {
+					...init_data.teacher_personal_info,
 					[name]: event.target.value,
 				}
 			})
@@ -88,11 +91,11 @@ const PersonalInfoForm =({init_data, setNewData})=>{
 
 				<div className="row m-0">
 					<div className="col-sm-6 col-12 p-0">
-						<FormControl className="mb-3 w-80" required>
+						<FormControl className="mb-3" style={{minWidth: '80%'}} required>
 							<InputLabel htmlFor="gender">Gender</InputLabel>
 							<Select
 								native
-								value={init_data.student_personal_info.gender}
+								value={init_data.teacher_personal_info.gender}
 								onChange={handleChange}
 								inputProps={{ name: 'gender', id: 'gender' }}
 							>
@@ -106,11 +109,11 @@ const PersonalInfoForm =({init_data, setNewData})=>{
 					<div className="col-sm-6 col-12 p-0">
 						<TextField
 			        id="dob"
-			        label="Birthdate"
+			        label="Birth Date"
 			        required
 			        className="mb-3"
 			        type="date"
-			        defaultValue={init_data.student_personal_info.dob}
+			        defaultValue={init_data.teacher_personal_info.dob}
 			        onChange={handleChange}
 			        InputLabelProps={{shrink: true,}}
 			      />
@@ -122,7 +125,7 @@ const PersonalInfoForm =({init_data, setNewData})=>{
 						<TextField 
 							id="blood_group" 
 							label="Blood Group" 
-							value={init_data.student_personal_info.blood_group}
+							value={init_data.teacher_personal_info.blood_group}
 							onChange={handleChange}
 							className="mb-3" 
 						/>
@@ -131,7 +134,7 @@ const PersonalInfoForm =({init_data, setNewData})=>{
 						<TextField 
 							id="religion" 
 							label="Religion" 
-							value={init_data.student_personal_info.religion}
+							value={init_data.teacher_personal_info.religion}
 							onChange={handleChange}
 							className="mb-3" 
 						/>
@@ -139,15 +142,21 @@ const PersonalInfoForm =({init_data, setNewData})=>{
 				</div>
 
 				<div className="row m-0">
-					<TextField
-		        id="admitted_at"
-		        label="Admitted At"
-		        className="mb-3"
-		        type="date"
-		        defaultValue={init_data.student_personal_info.admitted_at}
-		        onChange={handleChange}
-		        InputLabelProps={{shrink: true,}}
-		      />
+					<div className="col-sm-6 col-12 p-0">
+						<FormControl className="mb-3" fullWidth>
+							<InputLabel htmlFor="marital_status">Marital Status</InputLabel>
+							<Select
+								native
+								value={init_data.teacher_personal_info.marital_status}
+								onChange={handleChange}
+								inputProps={{ name: 'marital_status', id: 'marital_status' }}
+							>
+								<option aria-label="None" value="" />
+								<option value='male'>Married</option>
+								<option value='female'>Unmarried</option>
+							</Select>
+						</FormControl>
+					</div>
 				</div>
 
 
@@ -186,18 +195,38 @@ const PersonalInfoForm =({init_data, setNewData})=>{
 						<TextField
 							id="email"
 							label="Email"
-							value={init_data.student_personal_info.email}
+							value={init_data.teacher_personal_info.email}
 							onChange={handleChange}
 							className='mb-3'
 							fullWidth
+							InputProps={{
+			          startAdornment: (<InputAdornment position="start"><AlternateEmailIcon color="primary" /></InputAdornment>),
+			        }}
 						/>
 					</div>
 				</div>
+
+				<div className="row m-0">
+					<div className="col-sm-8 col-12 p-0">
+						<TextField
+							id="facebook_id"
+							label="Facebook Link"
+							value={init_data.teacher_personal_info.facebook_id}
+							onChange={handleChange}
+							className='mb-3'
+							fullWidth
+							InputProps={{
+			          startAdornment: (<InputAdornment position="start"><FacebookIcon color="primary" /></InputAdornment>),
+			        }}
+						/>
+					</div>
+				</div>
+
 				<div>
 					<TextField
 						id="address"
 						label="Address"
-						defaultValue={init_data.student_personal_info.address}
+						defaultValue={init_data.teacher_personal_info.address}
 						onChange={handleChange}
 						fullWidth
 						className="mb-3"
@@ -213,4 +242,4 @@ const PersonalInfoForm =({init_data, setNewData})=>{
 	)
 }
 
-export { PersonalInfoForm };
+export { TeacherPersonalInfoForm };

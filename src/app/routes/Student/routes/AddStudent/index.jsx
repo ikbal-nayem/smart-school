@@ -32,6 +32,18 @@ export default class AddStudent extends React.Component{
 	handleChange =(new_date)=>{
 		this.setState({data: {...new_date}})
 	}
+	handleGInfo =(event)=>{
+		this.setState({
+			data: {
+				...this.data,
+				student_personal_info: {
+					...this.data.student_personal_info,
+					guardian: this.state.guardianData?this.guardianData.username:null,
+					guardian_relation: event.targer.value 
+				}
+			},
+		})
+	}
 
 	handleGModal =()=>{
 		this.setState({g_modal: !this.state.g_modal})
@@ -110,7 +122,14 @@ export default class AddStudent extends React.Component{
 												<GuardianCard data={this.state.guardianData}/>
 											</div>
 											<div className="col-sm-6 col-12 d-flex align-items-center">
-												<TextField id="guardian_relation" label="Relation with student" className="mr-auto" type="search"/>
+												<TextField
+													id="guardian_relation"
+													label="Relation with student"
+													value={this.state.student_personal_info.guardian_relation}
+													onChange={this.handleGInfo}
+													className="mr-auto"
+													type="search"
+												/>
 											</div>
 										</div>
 									</div>

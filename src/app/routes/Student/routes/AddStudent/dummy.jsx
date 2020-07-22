@@ -34,6 +34,7 @@ const init_data = {
 }
 
 const g_init_data = {
+    "username": null,
     "first_name": null,
     "last_name": null,
     "account_type": 'guardian',

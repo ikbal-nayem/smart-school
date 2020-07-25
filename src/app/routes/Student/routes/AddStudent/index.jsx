@@ -74,7 +74,7 @@ export default class AddStudent extends React.Component{
 						</div>
 						<hr className="mt-4 mb-2 d-md-none bg-primary" style={{width: '70%'}} />
 						
-						<div className="col-md-6 col-sm-12 col-12 p-0 animated fadeInLeftTiny animation-delay-2" style={{maxWidth: 'calc(50% - 2px)'}}>
+						<div className="col-md-6 col-sm-12 col-12 p-0 animated fadeInLeftTiny animation-delay-2" style={styles.academic}>
 							<AcademicInfoForm init_data={this.state.data} setNewData={this.handleChange} />
 						</div>
 					</div>
@@ -101,17 +101,17 @@ export default class AddStudent extends React.Component{
 										</div>
 										<Button variant="contained" className="w-50 m-auto my-3" color="secondary" onClick={this.handleGModal}>Add new Guardian</Button>
 										<Modal
-							        aria-labelledby="g-modal"
-							        aria-describedby="g-modal-description"
-							        className="d-flex align-items-center justify-content-center"
-							        open={this.state.g_modal}
-							        onClose={this.closeGModal}
-							        closeAfterTransition
-							        BackdropComponent={Backdrop}
-							        BackdropProps={{
-							          timeout: 500,
-							        }}
-							      >
+											aria-labelledby="g-modal"
+											aria-describedby="g-modal-description"
+											className="d-flex align-items-center justify-content-center"
+											open={this.state.g_modal}
+											onClose={this.closeGModal}
+											closeAfterTransition
+											BackdropComponent={Backdrop}
+											BackdropProps={{
+												timeout: 500,
+											}}
+										>
 											<GuardianInfoForm init_data={g_init_data} close={this.handleGModal} setGuardianData={this.setGuardianData}/>
 										</Modal>
 									</div>
@@ -125,7 +125,7 @@ export default class AddStudent extends React.Component{
 												<TextField
 													id="guardian_relation"
 													label="Relation with student"
-													value={this.state.student_personal_info.guardian_relation}
+													value={this.state.data.student_personal_info.guardian_relation}
 													onChange={this.handleGInfo}
 													className="mr-auto"
 													type="search"
@@ -146,5 +146,12 @@ export default class AddStudent extends React.Component{
 				</div>
 			</div>
 		)
+	}
+}
+
+
+const styles = {
+	academic: {
+		maxWidth: (window.screen.width<400)?'100%':'calc(50% - 2px)',
 	}
 }

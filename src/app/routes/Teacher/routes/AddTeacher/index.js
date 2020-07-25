@@ -26,7 +26,6 @@ export default class AddTeacher extends React.Component{
 	}
 
 	render(){
-		console.log(this.state.data)
 		return(
 			<div className="jr-card m-3 p-0 animated zoomIn animation-duration-3" style={{overflow:'hidden'}}>
 				<div className="jr-card-header text-center bg-secondary text-white m-0 p-2">
@@ -43,8 +42,7 @@ export default class AddTeacher extends React.Component{
 							<Divider orientation="vertical" />
 						</div>
 						<hr className="mt-4 mb-2 d-md-none bg-primary" style={{width: '70%'}} />
-						
-						<div className="col-md-6 col-sm-12 col-12 p-0 animated fadeInLeftTiny animation-delay-2" style={{maxWidth: 'calc(50% - 2px)'}}>
+						<div className="col-md-6 col-sm-12 col-12 p-0 animated fadeInLeftTiny animation-delay-2" style={styles.academic}>
 							<TeacherAcademicInfoForm init_data={this.state.data} setNewData={this.handleChange} />
 						</div>
 					</div>
@@ -59,5 +57,12 @@ export default class AddTeacher extends React.Component{
 				</div>
 			</div>
 		)
+	}
+}
+
+
+const styles = {
+	academic: {
+		maxWidth: (window.screen.width<400)?'100%':'calc(50% - 2px)',
 	}
 }

@@ -5,7 +5,7 @@ import TableItem from './TableItem';
 
 const TableHeader = ({data})=>{
 	return(
-		<div className="table-responsive-material">
+	<div className="table-responsive-material">
       <table className="default-table table-unbordered table table-sm table-hover">
         <thead className="th-border-b">
 	        <tr>

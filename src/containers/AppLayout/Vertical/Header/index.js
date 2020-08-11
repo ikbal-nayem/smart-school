@@ -14,6 +14,12 @@ import { switchLanguage, toggleCollapsedNav } from "actions/Setting";
 import IntlMessages from "util/IntlMessages";
 import LanguageSwitcher from "components/LanguageSwitcher/index";
 
+import {
+  PeopleAltRounded,
+  PeopleOutlineRounded,
+  LocalLibrary
+} from '@material-ui/icons';
+
 const Index =(props)=> {
 
   const dispatch = useDispatch();
@@ -61,23 +67,23 @@ const Index =(props)=> {
     return (
       <ul className="jr-list jr-list-half">
         <li className="jr-list-item">
-          <Link className="jr-list-link" to="/app/calendar/basic">
-            <i className="zmdi zmdi-calendar zmdi-hc-fw"/>
-            <span className="jr-list-text"><IntlMessages id="sidebar.calendar.basic"/></span>
+          <Link className="jr-list-link" to="/student/add">
+            <LocalLibrary />
+            <span className="jr-list-text text-center"><IntlMessages id="sidebar.student.add"/></span>
           </Link>
         </li>
 
         <li className="jr-list-item">
-          <Link className="jr-list-link" to="/app/to-do">
-            <i className="zmdi zmdi-check-square zmdi-hc-fw"/>
-            <span className="jr-list-text"><IntlMessages id="sidebar.appModule.toDo"/></span>
+          <Link className="jr-list-link" to="/teacher/add">
+            <PeopleAltRounded />
+            <span className="jr-list-text text-center"><IntlMessages id="sidebar.teacher.add"/></span>
           </Link>
         </li>
 
         <li className="jr-list-item">
-          <Link className="jr-list-link" to="/app/mail">
-            <i className="zmdi zmdi-email zmdi-hc-fw"/>
-            <span className="jr-list-text"><IntlMessages id="sidebar.appModule.mail"/></span>
+          <Link className="jr-list-link" to="/staff/add">
+            <PeopleOutlineRounded />
+            <span className="jr-list-text text-center"><IntlMessages id="sidebar.staff.add"/></span>
           </Link>
         </li>
 
@@ -125,7 +131,7 @@ const Index =(props)=> {
           </IconButton>
 
           <Link className="app-logo mr-2 d-none d-sm-block" to="/">
-            <img src={require("assets/images/logo.png")} alt="Jambo" title="Jambo"/>
+            <img src={require("assets/images/logo.png")} alt="smart-school" title="smart-school"/>
           </Link>
 
 

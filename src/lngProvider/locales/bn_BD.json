@@ -1,6 +1,7 @@
 {
   "all": "সব",
   "action": "প্রক্রিয়া",
+
   "class": "শ্রেণী",
   "class.one": "প্রথম",
   "class.two": "দ্বিতীয়",
@@ -14,13 +15,16 @@
   "class.ten": "দশম",
   "class.eleven": "একাদশ",
   "class.twelve": "দ্বাদশ",
+  "class.exam": "পরীক্ষা",
   "class.group": "বিভাগ",
   "class.group.science": "বিজ্ঞান",
   "class.group.arts": "কলা",
   "class.group.commerce": "বাণিজ্য",
   "class.section": "শাখা",
   "class.shift": "শিফট",
+  "class.subjects": "বিষয়গুলি",
   "class.roll": "রোল",
+
   "email": "ই-মেইল",
   "guardian": "অভিভাবক",
   "joining-date": "যোগদান তারিখ",

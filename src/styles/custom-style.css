@@ -1,0 +1,10 @@
+.link:hover{
+	text-decoration: none;
+}
+.scale-12{
+	transition: 1s cubic-bezier(0.6,-0.29, 0.35, 1.53);
+}
+.scale-12:hover{
+	transform: scale(1.2);
+	text-shadow: .5px .5px 5px black;
+}

@@ -11,6 +11,8 @@ const Routes = ({match}) =>
   	<Route path={`${match.url}student`} component={Student} />
   	<Route path={`${match.url}teacher`} component={asyncComponent(() => import('./Teacher'))} />
   	<Route path={`${match.url}staff`} component={asyncComponent(() => import('./Staff'))} />
+  	<Route path={`${match.url}class`} component={asyncComponent(() => import('./Class'))} />
+  	<Route path={`${match.url}subjects`} component={asyncComponent(() => import('./Subject'))} />
 
     <Route component={asyncComponent(() => import("./extraPages/routes/404"))}/>
   </Switch>;

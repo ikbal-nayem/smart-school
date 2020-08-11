@@ -3,29 +3,29 @@ import { Link } from 'react-router-dom';
 import IntlMessages from 'util/IntlMessages'
 import Avatar from '@material-ui/core/Avatar';
 
-const TableItem = ({data, index}) => {
+const TableItem = ({item, index}) => {
 
-  const statusStyle = data.group===null ? "text-white bg-lime" : data.group.includes("Science") ? "text-white bg-cyan" : data.group.includes("Arts") ? "text-white bg-light-blue" : "text-white bg-blue";
+  const statusStyle = item.academic_info.group===null ? "text-white bg-lime" : item.academic_info.group.includes("Science") ? "text-white bg-cyan" : item.academic_info.group.includes("Arts") ? "text-white bg-light-blue" : "text-white bg-blue";
   
   return (
-    <tr key={data.username} className={`animated fadeIn animation-delay-${index}`}>
+    <tr key={item.username} className={`animated fadeIn animation-delay-${index}`}>
       <td>
-        <Link to={`/student/${data.username}`} className='card-link'>
+        <Link to={`/student/${item.username}`} className='card-link'>
           <div className="user-profile d-flex flex-row align-items-center" style={styles.userProfile}>
-            <Avatar alt={data.username} src={data.thumb} className="user-avatar" />
+            <Avatar alt={item.username} src={item.pictures.thumbnail} className="user-avatar" />
             <div className="user-detail">
-              <h5 className="user-name">&ensp; {data.name}</h5>
+              <h5 className="user-name">&ensp; {item.first_name} {item.last_name}</h5>
             </div>
           </div>
         </Link>
       </td>
-      <td className="text-center">{data.roll}</td>
-      <td className="text-center">{data.Class}</td>
-      <td className="text-center">{data.section}</td>
+      <td className="text-center">{item.academic_info.roll}</td>
+      <td className="text-center">{item.academic_info.class_code}</td>
+      <td className="text-center">{item.academic_info.section}</td>
       <td className="status-cell text-center">
-        <div className={`badge text-uppercase ${statusStyle}`}>{data.group?<IntlMessages id={`class.group.${data.group.toLowerCase()}`}/>:'-'}</div>
+        <div className={`badge text-uppercase ${statusStyle}`}>{item.academic_info.group?<IntlMessages id={`class.group.${item.academic_info.group.toLowerCase()}`}/>:'-'}</div>
       </td>
-      <td className="text-center">{data.shift}</td>
+      <td className="text-center">{item.academic_info.shift}</td>
     </tr>
   );
 };

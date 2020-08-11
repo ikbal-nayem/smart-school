@@ -19,9 +19,9 @@ const TableHeader = ({data})=>{
 	        </tr>
         </thead>
         <tbody>
-	        {data.map((data, index) => {
-	          return (
-	            <TableItem key={data.username} data={data} index={index}/>
+	        {data.map((item, index) => {
+	          return(
+	            <TableItem key={item.username} item={item} index={index}/>
 	          );
 	        })}
         </tbody>

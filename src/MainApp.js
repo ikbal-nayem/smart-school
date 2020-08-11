@@ -6,6 +6,7 @@ import {Route, Switch} from 'react-router-dom';
 import configureStore, {history} from './store';
 import './firebase/firebase';
 import App from './containers/App';
+import "./styles/custom-style.css"
 
 export const store = configureStore();
 

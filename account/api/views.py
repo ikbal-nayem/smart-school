@@ -36,11 +36,15 @@ class AccountSerilizerView(ViewSet):
 
 		if account_type == 'student':			#student
 			year = request.GET.get('year') or datetime.date.today().year
+			class_code = request.GET.get('class') or 'all'
 			try:
 				int(year)
 			except:
 				return Response({'error': 'invalid value for year'})
-			queryset = queryset.filter(student_personal_info__academic_info__session=year)
+			if class_code == 'all':
+				queryset = queryset.filter(student_personal_info__academic_info__session=year)
+			else:
+				queryset = queryset.filter(student_personal_info__academic_info__session=year, student_personal_info__academic_info__class_id__class_code=class_code)
 			context['year'] = year
 
 		elif account_type == 'teacher':			#teacher

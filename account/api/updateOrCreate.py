@@ -1,11 +1,12 @@
 from rest_framework.response import Response
-import random
+import random, json
 
 from account.api.serializer import (
 	StudentDetailSerializer,
 	TeacherDetailSerializer,
 	StaffDetailSerializer,
-	GuardianDetailSerializer
+	GuardianDetailSerializer,
+	PictureSerializer
 )
 from account.models import (
 	Accounts,
@@ -85,14 +86,31 @@ def update_student(instance, data, context=None):
 	return Response(serializer.errors)
 
 
-def create_student(data):
+
+def create_student(form_data):
+	data = json.loads(form_data['data'])
+	data['phone_numbers'] = checkNumbers(data.pop('phone_numbers'))
+	data.pop('pictures')
 	serializer = StudentDetailSerializer(data=data, partial=True)
 	if serializer.is_valid():
 		serializer.validated_data['username'] = getUsername(data['first_name'], data['last_name'])
 		serializer.save()
+
+		student = Accounts.objects.get(username=serializer.validated_data['username'])
+		student.student_personal_info.guardian = Guardian.objects.filter(account__username=data['student_personal_info'].get('guardian')).first()
+		student.student_personal_info.guardian_relation = data['student_personal_info'].get('guardian_relation')
+		student.student_personal_info.save()
+
 		if data.get('academic_info'):
-			academic_info = update_StudentAcademicInfo(Student.objects.get(account__username=serializer.validated_data['username']), data.get('academic_info'), action='new')
+			academic_info = update_StudentAcademicInfo(student.student_personal_info, data.get('academic_info'), action='new')
 			serializer.validated_data['academic_info'] = academic_info
+		if form_data.get('picture'):	# setting picture
+			pic_seri = PictureSerializer(student.pictures, data={'profile': form_data['picture']})
+			if pic_seri.is_valid():
+				pic_seri.save()
+			else:
+				print(pic_seri.errors)
+		serializer.validated_data['success'] = True
 		return Response(serializer.validated_data)
 	return Response(serializer.errors)
 
@@ -186,3 +204,15 @@ def create_guardian(data):
 		serializer.save()
 		return Response(serializer.validated_data)
 	return Response(serializer.errors)
+
+
+
+
+
+
+
+def checkNumbers(number_list):
+	for i, number in enumerate(number_list):
+		if number['number'] == None:
+			del number_list[i]
+	return number_list

@@ -3,11 +3,13 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
 from classes.models import (
-	ClassYear
+	ClassYear,
+	Shifts
 )
 from classes.api.serializer import (
 	ClassesSerializer,
-	ClassesDetailSerializer
+	ClassesDetailSerializer,
+	StudentFormSerializer
 )
 
 
@@ -34,3 +36,11 @@ class ClassesView(ViewSet):
 		serializer = ClassesDetailSerializer(queryset, many=True)
 		return Response(serializer.data)
 
+
+
+class ClassFormView(ViewSet):
+
+	def studentForm(self, request):
+		queryset = Shifts.objects.all()
+		serializer = StudentFormSerializer(queryset)
+		return Response(serializer.data)

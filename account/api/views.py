@@ -12,7 +12,8 @@ from account.api.serializer import (
 	TeacherDetailSerializer,
 	StaffDetailSerializer,
 	GuardianDetailSerializer,
-	LeaveInfoSerializer
+	LeaveInfoSerializer,
+	GuardianSearchList
 )
 from account.api.updateOrCreate import (
 	update_student,
@@ -28,7 +29,6 @@ from classes.api.serializer import TeacherAcademicInfoSerializer
 
 
 class AccountSerilizerView(ViewSet):
-
 
 	def list(self, request, account_type):
 		queryset = Accounts.objects.filter(account_type=account_type)
@@ -140,3 +140,11 @@ class LeaveInfoView(ViewSet):
 			serializer.save()
 			return Response(serializer.validated_data)
 		return Response(serializer.errors)
+
+
+class GuardianSearchListView(ViewSet):
+
+	def list(self, request):
+		queryset = Accounts.objects.filter(account_type='guardian')
+		serializer = GuardianSearchList(queryset, many=True)
+		return Response(serializer.data)

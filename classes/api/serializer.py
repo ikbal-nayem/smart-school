@@ -1,4 +1,5 @@
 from rest_framework import serializers
+import datetime
 
 from classes.models import (
 	StudentAcademicInfo,
@@ -147,3 +148,32 @@ class ClassesDetailSerializer(serializers.ModelSerializer):
 	def get_number_of_student(self, obj):
 		return len(obj.students.all())
 
+
+
+class StudentFormSerializer(serializers.Serializer):
+	shifts = serializers.SerializerMethodField()
+	shift_classes = serializers.SerializerMethodField()
+
+	def get_shifts(self, obj):
+		return [s.name for s in obj]
+	def get_shift_classes(self, obj):
+		sft = {}
+		for shift in obj:
+			sft[shift.name] = {}
+			cls_list = []
+			for clss in shift.class_year.filter(year=datetime.date.today().year):
+				cls_list.append(clss.class_code.code)
+				sft[shift.name][clss.class_code.code] = {}
+				if clss.class_code.code in ['ix', 'x', 'xi', 'xii']:
+					sft[shift.name][clss.class_code.code]['has_group'] = True
+					grps = []
+					for cls_info in clss.info.all():
+						grps.append(cls_info.group.name)
+						sft[shift.name][clss.class_code.code][cls_info.group.name] = {}
+						sft[shift.name][clss.class_code.code][cls_info.group.name]['sections'] = [sec.name for sec in cls_info.sections.all()]
+					sft[shift.name][clss.class_code.code]['group_list'] = grps
+				else:
+					sft[shift.name][clss.class_code.code]['has_group'] = False
+					sft[shift.name][clss.class_code.code]['sections'] = [sec.name for sec in clss.info.first().sections.all()] if clss.info.first() else []
+			sft[shift.name]['class_list'] = cls_list
+		return sft

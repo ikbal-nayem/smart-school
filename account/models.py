@@ -148,6 +148,7 @@ class Student(models.Model):
 	address = models.TextField(null=True, blank=True)
 	email = models.EmailField(null=True, blank=True, unique=True)
 	guardian = models.ForeignKey(Guardian, on_delete=models.SET_NULL, related_name='students', null=True, blank=True)
+	guardian_relation = models.CharField(max_length=100, null=True, blank=True, default=None)
 	_created = models.DateTimeField(auto_now_add=True, auto_now=False)
 	_updated = models.DateTimeField(auto_now=True)
 

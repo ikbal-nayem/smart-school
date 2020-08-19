@@ -63,6 +63,17 @@ class AccountListSerializer(serializers.ModelSerializer):
 
 
 
+# 							guardian search list
+
+class GuardianSearchList(serializers.ModelSerializer):
+	full_name = serializers.SerializerMethodField()
+	class Meta:
+		model = Accounts
+		fields = ['username', 'full_name']
+
+	def get_full_name(self, obj):
+		return obj.get_full_name();
+
 
 
 
@@ -106,7 +117,7 @@ class StudentDetailSerializer(WritableNestedModelSerializer):
 	student_personal_info = StudentSerializer(partial=True)
 	academic_info = serializers.SerializerMethodField()
 	pictures = PictureSerializer(allow_null=True)
-	phone_numbers = PhoneBook(many=True)
+	phone_numbers = PhoneBook(many=True, allow_null=True)
 	is_left = serializers.SerializerMethodField()
 	class Meta:
 		model = Accounts
@@ -118,9 +129,9 @@ class StudentDetailSerializer(WritableNestedModelSerializer):
 
 	def get_academic_info(self, obj):
 		class_list, session_list, academic_info = [], [], {}
-		all_class = obj.student_personal_info.academic_info.all().order_by('session')
+		all_class = obj.student_personal_info.academic_info.all().order_by('-session')
 		try:
-			class_code = self.context['request'].GET.get('class') or all_class.last().class_id.class_code.code
+			class_code = self.context['request'].GET.get('class') or all_class.first().class_id.class_code.code
 		except:
 			return None
 		for classes in all_class:

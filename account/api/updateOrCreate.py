@@ -198,10 +198,12 @@ def update_guardian(instance, data):
 
 
 def create_guardian(data):
+	data['phone_numbers'] = checkNumbers(data.pop('phone_numbers'))
 	serializer = GuardianDetailSerializer(data=data, partial=True)
 	if serializer.is_valid():
 		serializer.validated_data['username'] = getUsername(data['first_name'], data['last_name'])
 		serializer.save()
+		serializer.validated_data['success'] = True
 		return Response(serializer.validated_data)
 	return Response(serializer.errors)
 

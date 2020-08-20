@@ -8,7 +8,7 @@ class Student extends React.Component {
 		return (
 			<div className="app-wrapper">
 				<div className="animated zoomIn animation-duration-2">
-					<StudentTable />
+					<StudentTable {...this.props} />
 				</div>
 			</div>
 		);

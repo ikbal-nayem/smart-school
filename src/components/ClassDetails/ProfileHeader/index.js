@@ -1,14 +1,14 @@
 import React from "react";
 import {Typography} from '@material-ui/core';
 
-const ProfileHeader = () => {
+const ProfileHeader = (props) => {
   return (
     <div className="animated zoomInDown animation-duration-3">
       <div className="jr-profile-banner bg-gradient-primary">
         <div className="jr-profile-container">
           <div className="jr-profile-banner-top mb-md-3">
             <div className="jr-profile-banner-top-left">
-              <Typography variant="h2" className="ml-md-5 scale-12"><b>iX</b></Typography>
+              <Typography variant="h2" className="ml-md-5 scale-12"><b>viii</b></Typography>
             </div>
             <div className="jr-profile-banner-top-right">
               <ul className="jr-follower-list">

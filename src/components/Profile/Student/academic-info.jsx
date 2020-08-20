@@ -4,7 +4,7 @@ import { IconButton } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons'
 
 
-const AcademicInfo = ({academic_info}) => {
+const AcademicInfo = ({academic_info, name, photo}) => {
 	const his = useHistory()
 	const class_info = academic_info.class_info[0]
 
@@ -13,15 +13,15 @@ const AcademicInfo = ({academic_info}) => {
 	}
 
 	return(
-		<div className="jr-card shadow border-0 mb-2">
+		<div className="jr-card shadow border-0 mb-2 animated slideInUp animation-duration-2">
 			<div className="jr-card-header-color bg-gradient-primary text-center" style={styles.header_padding}>
 				<div className="jr-card-header-top">
 					<IconButton aria-label="back" className="text-white" style={{padding:6}} onClick={back}>
 						<ArrowBack />
 					</IconButton>
 				</div>
-				<img class="rounded-circle size-100 avatar-shadow mb-2" src="https://media.gettyimages.com/photos/high-school-student-picture-id78770628?s=612x612" alt="Student" />
-				<div className="text-white">Ikbal Hossain Nayem</div>
+				<img class="rounded-circle size-100 avatar-shadow mb-2 scale-12" src={photo} alt="Student" />
+				<div className="text-white">{name}</div>
 			</div>
 			<div className="jr-card-body p-0">
 				<div className="row">

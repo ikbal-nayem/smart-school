@@ -7,6 +7,7 @@ import {
   MenuItem
 } from '@material-ui/core'
 
+import { classList } from '../../../Class/routes/classes';
 import { getStudent } from './action';
 import TableHeader from './TableHeader';
 
@@ -16,10 +17,13 @@ import TableHeader from './TableHeader';
 const date = new Date()
 
 class StudentTable extends React.Component{
-  state = {
-    year: date.getFullYear(),
-    Class: 'all',
-    data: [],
+  constructor(props){
+    super(props)
+    this.state = {
+      year: date.getFullYear(),
+      Class: this.props.match.params.cls ? this.props.match.params.cls : 'all',
+      data: [],
+    }
   }
 
   componentDidMount = async ()=>{
@@ -41,14 +45,12 @@ class StudentTable extends React.Component{
   };
 
 
-  render(){
-
-    return (
+  render(){    return (
       <div className="jr-card">
         <div className="jr-card-header d-flex align-items-center mb-3">
           <h3 className="mb-0">
             <IntlMessages id="student"/>
-            <span className="badge badge-light badge-pill">{this.state.year}</span>
+            <span className="badge badge-primary">{this.state.year}</span>
           </h3>
           <div className="ml-auto">
                                   {/* class */}
@@ -60,16 +62,11 @@ class StudentTable extends React.Component{
                 inputProps={{name: 'Class'}}
               >
                 <MenuItem value="all"><IntlMessages id="all"/></MenuItem>
-                <MenuItem value='i'><IntlMessages id="class.one"/></MenuItem>
-                <MenuItem value='ii'><IntlMessages id="class.two"/></MenuItem>
-                <MenuItem value='iii'><IntlMessages id="class.three"/></MenuItem>
-                <MenuItem value='iv'><IntlMessages id="class.four"/></MenuItem>
-                <MenuItem value='v'><IntlMessages id="class.five"/></MenuItem>
-                <MenuItem value='vi'><IntlMessages id="class.six"/></MenuItem>
-                <MenuItem value='vii'><IntlMessages id="class.seven"/></MenuItem>
-                <MenuItem value='viii'><IntlMessages id="class.eight"/></MenuItem>
-                <MenuItem value='ix'><IntlMessages id="class.nine"/></MenuItem>
-                <MenuItem value='x'><IntlMessages id="class.ten"/></MenuItem>
+                {
+                  Object.entries(classList).map(([key, value])=>(
+                    <MenuItem value={key}>{key}</MenuItem>
+                  ))
+                }
               </Select>
             </FormControl>
                                 {/* year */}

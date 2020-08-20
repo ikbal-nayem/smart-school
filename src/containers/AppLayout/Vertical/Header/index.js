@@ -17,7 +17,8 @@ import LanguageSwitcher from "components/LanguageSwitcher/index";
 import {
   PeopleAltRounded,
   PeopleOutlineRounded,
-  LocalLibrary
+  LocalLibrary,
+  MenuBook
 } from '@material-ui/icons';
 
 const Index =(props)=> {
@@ -88,25 +89,19 @@ const Index =(props)=> {
         </li>
 
         <li className="jr-list-item">
-          <Link className="jr-list-link" to="/app/chat">
-            <i className="zmdi zmdi-comment zmdi-hc-fw"/>
-            <span className="jr-list-text"><IntlMessages id="sidebar.appModule.chat"/></span>
+          <Link className="jr-list-link" to="/class">
+            <i className="zmdi zmdi-balance zmdi-hc-fw"/>
+            <span className="jr-list-text"><IntlMessages id="all"/> <IntlMessages id="class"/></span>
           </Link>
         </li>
 
         <li className="jr-list-item">
-          <Link className="jr-list-link" to="/app/contact">
-            <i className="zmdi zmdi-account-box zmdi-hc-fw"/>
-            <span className="jr-list-text"><IntlMessages id="sidebar.appModule.contact"/></span>
+          <Link className="jr-list-link" to="/subjects">
+            <MenuBook/>
+            <span className="jr-list-text"><IntlMessages id="class.subjects"/></span>
           </Link>
         </li>
 
-        <li className="jr-list-item">
-          <Link className="jr-list-link" to="/">
-            <i className="zmdi zmdi-plus-circle-o zmdi-hc-fw"/>
-            <span className="jr-list-text">Add New</span>
-          </Link>
-        </li>
       </ul>);
   };
 
@@ -152,7 +147,7 @@ const Index =(props)=> {
                   data-toggle="dropdown">
                   <span className="app-notification-menu">
                     <i className="zmdi zmdi-apps zmdi-hc-fw zmdi-hc-lg"/>
-                    <span>Apps</span>
+                    <span><IntlMessages id="quick"/></span>
                   </span>
                 </DropdownToggle>
 

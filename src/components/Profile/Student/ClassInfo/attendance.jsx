@@ -84,7 +84,7 @@ class AttendanceReport extends PureComponent {
 
 	render(){
 		return(
-			<div className="jr-card mb-2 p-0">
+			<div className="jr-card mb-2 p-0 animated slideInUp animation-duration-2 animation-delay-2">
 				<div className="card-header text-center py-2">
 					<Typography variant="h6" gutterBottom>Class performance</Typography>
 				</div>
@@ -95,7 +95,7 @@ class AttendanceReport extends PureComponent {
 						<hr className="mt-1"/>
 						<Typography variant="subtitle2" gutterBottom style={{color: '#4caf50'}}>Precent - 72.7%</Typography>
 						<Typography variant="caption">Total Class - 110</Typography>
-						<div className="m-auto">
+						<div className="d-flex justify-content-center">
 							<PieChart width={200} height={230}>
 								<Pie
 									data={data}
@@ -126,7 +126,7 @@ class AttendanceReport extends PureComponent {
 						
 						<Typography variant="h7" gutterBottom>Subject Performance</Typography>
 						<hr className="mt-1"/>
-						<div className="class-info">
+						<div className="class-info d-flex justify-content-center">
 							<RadarChart cx={210} cy={120} outerRadius={100} width={400} height={250} data={subjectData}>
 								<PolarGrid />
 								<PolarAngleAxis dataKey="subject" />

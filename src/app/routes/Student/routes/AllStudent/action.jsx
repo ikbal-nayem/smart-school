@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from 'util/Api';
 
 
-const getStudent = (year=null, cls=null)=>{
+export const getStudent = (year=null, cls=null)=>{
 	return new Promise((resolve, reject)=>{
-			axios.get(`http://localhost:8000/api/account/student/?year=${year}&class=${cls}`)
+			axios.get(`account/student/?year=${year}&class=${cls}`)
 			.then(res => {
 				resolve(res.data)
 			})
@@ -11,7 +11,3 @@ const getStudent = (year=null, cls=null)=>{
 	)
 }
 
-
-export {
-	getStudent,
-}

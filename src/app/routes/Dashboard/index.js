@@ -1,5 +1,4 @@
 import React from 'react';
-import IntlMessages from 'util/IntlMessages';
 
 class Dashboard extends React.Component {
 
@@ -7,7 +6,7 @@ class Dashboard extends React.Component {
     return (
       <div className="app-wrapper">
         <div className="d-flex justify-content-center">
-          <h1><IntlMessages id="pages.samplePage.description"/></h1>
+          <h1>Smart-School Dashboard</h1>
         </div>
 
       </div>

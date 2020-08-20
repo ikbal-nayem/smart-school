@@ -60,7 +60,7 @@ const Result = ({active_class}) =>{
 
 
 	return(
-		<div className="jr-card mb-2 p-0 jr-card-full">
+		<div className="jr-card mb-2 p-0 jr-card-full animated slideInUp animation-duration-2">
 
 			<div className="card-header py-2 text-center">
 				<Typography variant="h6" gutterBottom>Result Report</Typography>

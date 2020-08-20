@@ -5,25 +5,40 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import { Search, Add } from '@material-ui/icons';
 import List from './List';
-import { classList } from './data';
+import { classList } from '../../../Class/routes/classes';
 
 
 
 
 export default class SubjectList extends React.Component{
+	state = {
+		cls: 'i'
+	}
+
+	componentDidMount(){
+		const search = this.props.location.search.split('=')
+		this.setState({cls: search[0] === '?class' ? search[1] : this.state.cls})
+	}
+
+	clsChange = (cls)=>{
+		this.setState({cls: cls})
+	}
 
 	render(){
+
 		return(
 			<React.Fragment>
-				<div className="d-flex class-info mx-3 mt-3 mb-sm-3">
+				<div className="d-flex class-info mx-3 mt-3">
 				{
 					Object.entries(classList).map(([key, value], i)=>(
-						<div className={`class-info-card animated slideInRight animation-delay-${i+2}`}>
-		      		<div className={`jr-card jr-card-full p-2 mt-1 mb-1 text-white bg-gradient-primary`}>
-		      			<div className="text-center">
-		      				<h2 className="jr-font-weight-bold mb-1">{key}</h2>
-		      				<p className="m-0">{value}</p>
-		      			</div>
+						<div className={`animated slideInRight animation-delay-${i+1} animation-duration-2`} key={key}>
+							<div className="class-info-card" onClick={()=>this.clsChange(key)}>
+			      		<div className={`jr-card jr-card-full p-2 mt-1 mb-1${this.state.cls === key ? ' text-white bg-gradient-primary' : null}`}>
+			      			<div className="text-center">
+			      				<h2 className="jr-font-weight-bold mb-1">{key}</h2>
+			      				<p className="m-0">{value}</p>
+			      			</div>
+			      		</div>
 		      		</div>
 			    	</div>
 					))

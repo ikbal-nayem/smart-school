@@ -1,47 +1,31 @@
-const data1 = {
-    "username": "ikbal",
-    "first_name": "Ikbal",
-    "last_name": "Nayem",
-    "account_type": "student",
+const dummy = {
+    "username": "",
+    "first_name": "",
+    "last_name": "",
+    "account_type": "",
     "is_left": false,
     "student_personal_info": {
-        "guardian": {
-            "first_name": "Guardian",
-            "last_name": "Name",
-            "username": "<username>",
-            "phone_numbers": [
-                {
-                    "id": 5,
-                    "number": "123"
-                }
-            ],
-            "email": "example@email.com",
-            "gender": "male",
-        },
-        "gender": "male",
+        "guardian": null,
+        "gender": "",
         "dob": null,
-        "religion": "Islam",
-        "blood_group": "B+",
+        "religion": "",
+        "blood_group": "",
         "admitted_at": null,
         "address": "",
-        "email": "example@email.com"
+        "email": ""
     },
     "academic_info": {
-        "class_list": [
-            "ix", "viii", "vii"
-        ],
-        "session_list": [
-            2020, 2019, 2018
-        ],
+        "class_list": [],
+        "session_list": [],
         "class_info": [
             {
                 "id": 1,
-                "shift": "Morning",
-                "class_code": "ix",
-                "group": "Science",
-                "section": "A",
-                "roll": 10,
-                "session": 2020,
+                "shift": "",
+                "class_code": "",
+                "group": "",
+                "section": "",
+                "roll": null,
+                "session": null,
                 "class_id": 1
             }
         ]
@@ -52,8 +36,8 @@ const data1 = {
     },
     "phone_numbers": [
         {
-            "id": 2,
-            "number": "123"
+            "id": 1,
+            "number": ""
         }
     ]
 }
@@ -156,7 +140,7 @@ const res3 = [
 ];
 
 export {
-    data1,
+    dummy,
     class7,
     class8,
     class9,

@@ -14,7 +14,6 @@ import {
   LocalLibrary,
   AccountBalance,
   MenuBook,
-  Edit
 } from '@material-ui/icons';
 
 class SidenavContent extends Component {
@@ -202,14 +201,6 @@ class SidenavContent extends Component {
             <NavLink to="/class/all">
               <AccountBalance fontSize="large" style={styles.icon_padding}/>
               <span className="nav-text"> <IntlMessages id="class"/></span>
-            </NavLink>
-          </li>
-
-                                            {/*Exam*/}
-          <li className="menu no-arrow animated zoomInDown animation-duration-7">
-            <NavLink to="/staff/all">
-              <Edit fontSize="large" style={styles.icon_padding} />
-              <span className="nav-text"> <IntlMessages id="class.exam"/></span>
             </NavLink>
           </li>
 

@@ -103,6 +103,7 @@ class StudentSerializer(serializers.ModelSerializer):
 			return {
 				'name': obj.guardian.__str__(),
 				'username': obj.guardian.account.username,
+				'gender': obj.guardian.gender,
 				'phone_numbers': PhoneBook(obj.guardian.account.phone_numbers.all(), many=True).data,
 				'email': obj.guardian.email
 				}

@@ -12,9 +12,7 @@ export default function Toast({message, type}) {
   const [open, setOpen] = React.useState(true);
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+    if (reason === 'clickaway') { return; }
     setOpen(false);
   };
 
@@ -24,9 +22,9 @@ export default function Toast({message, type}) {
       autoHideDuration={6000} 
       onClose={handleClose}
       anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right'
-            }}
+        vertical: 'top',
+        horizontal: 'center'
+      }}
     >
       <Alert severity={type}>
         {message}

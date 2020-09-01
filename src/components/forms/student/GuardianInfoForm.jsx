@@ -22,6 +22,7 @@ const GuardianInfoForm =({close, setGuardianData})=>{
 		gender: false
 	})
 	const [saving, setSaving] = React.useState(false)
+	const [emailExists, setEmailExists] = React.useState(false)
 	const [state, setState] = React.useState({
 		"username": null,
 		"first_name": null,
@@ -90,6 +91,11 @@ const GuardianInfoForm =({close, setGuardianData})=>{
 			if(data.success){
 				setGuardianData(data)
 				close()
+			} else {
+				console.log(data)
+				if(data.guardian_personal_info && data.guardian_personal_info.email){
+					setEmailExists(true)
+				}
 			}
 			setSaving(false)
 		}
@@ -160,6 +166,7 @@ const GuardianInfoForm =({close, setGuardianData})=>{
 						{
 							state.phone_numbers.map((data, index)=>(
 								<TextField
+									key={index}
 									id="phone_numbers"
 									label="Phone"
 									type="number"
@@ -193,6 +200,8 @@ const GuardianInfoForm =({close, setGuardianData})=>{
 							onChange={handleChange}
 							className="mb-3"
 							fullWidth
+							error={emailExists}
+							helperText={emailExists?"Email is already exists.":null}
 						/>
 					</div>
 				</div>

@@ -37,7 +37,7 @@ const PersonalInfoForm =({init_data, setNewData, validated})=>{
 
 	const addPhoneField = ()=>{
 		let new_field = init_data
-		new_field['phone_numbers'] = [...init_data.phone_numbers, {'number': null}]
+		new_field['phone_numbers'] = [...init_data.phone_numbers, {'number': ''}]
 		setNewData(new_field)
 	}
 
@@ -150,6 +150,7 @@ const PersonalInfoForm =({init_data, setNewData, validated})=>{
 						{
 							init_data.phone_numbers.map((data, index)=>(
 								<TextField
+									key={index}
 									id="phone_numbers"
 									label="Phone"
 									type="number"
@@ -184,6 +185,8 @@ const PersonalInfoForm =({init_data, setNewData, validated})=>{
 							onChange={handleChange}
 							className='mb-3'
 							fullWidth
+							error={!validated.email}
+							helperText={!validated.email?"This email is already exists.":null}
 						/>
 					</div>
 				</div>

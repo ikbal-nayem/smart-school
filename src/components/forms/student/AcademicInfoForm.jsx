@@ -86,7 +86,7 @@ class AcademicInfoForm extends React.Component{
 								>
 									{
 										this.state.data.shifts.map(shift=>(
-											<MenuItem value={shift}>{shift}</MenuItem>
+											<MenuItem key={shift} value={shift}>{shift}</MenuItem>
 										))
 									}
 								</Select>

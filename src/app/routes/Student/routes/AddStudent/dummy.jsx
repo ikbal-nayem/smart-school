@@ -39,6 +39,7 @@ const validated_data = {
 	"last_name": true,
 	"gender": true,
 	"dob": true,
+	"email": true,
 	"shift": true,
 	"class_code": true,
 	"group": true,

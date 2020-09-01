@@ -45,7 +45,8 @@ class StudentTable extends React.Component{
   };
 
 
-  render(){    return (
+  render(){
+    return (
       <div className="jr-card">
         <div className="jr-card-header d-flex align-items-center mb-3">
           <h3 className="mb-0">
@@ -64,7 +65,7 @@ class StudentTable extends React.Component{
                 <MenuItem value="all"><IntlMessages id="all"/></MenuItem>
                 {
                   Object.entries(classList).map(([key, value])=>(
-                    <MenuItem value={key}>{key}</MenuItem>
+                    <MenuItem key={key} value={key}>{key}</MenuItem>
                   ))
                 }
               </Select>

@@ -100,8 +100,12 @@ export default class AddStudent extends React.Component{
 			if(resp.success){
 				this.setState({saving: false, success: true})
 				this.props.history.goBack()
+			} else {
+				if(resp.student_personal_info && resp.student_personal_info.email){
+					this.setState({validated:{...this.state.validated, email:false}})
+				}
+				this.setState({saving: false, success: false})
 			}
-			this.setState({saving: false, success: false})
 		}
 	}
 
@@ -215,10 +219,11 @@ export default class AddStudent extends React.Component{
 						>Save</Button>
 					</div>
 
-					{this.state.success?<Toast
-																	message={this.state.success?"Student added successfully!":"Could not add the student."} 
-																	type={this.state.success?"success":"danger"}
-															/>:null}
+					{this.state.success?
+					<Toast
+						message="Student added successfully!"
+						type="success"
+					/>:null}
 
 				</div>
 			</div>

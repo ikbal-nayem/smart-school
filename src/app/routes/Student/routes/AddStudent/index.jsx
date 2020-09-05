@@ -28,7 +28,7 @@ export default class AddStudent extends React.Component{
 			success: false,
 			validated: validated_data,
 		}
-		delete this.state.data.academic_info
+		// delete this.state.data.academic_info
 
 		this.handleChange = this.handleChange.bind(this)
 		this.handleGModal = this.handleGModal.bind(this)
@@ -111,6 +111,7 @@ export default class AddStudent extends React.Component{
 
 
 	render(){
+		console.log(this.state)
 		return(
 			<div className="jr-card m-3 p-0 animated zoomIn animation-duration-3" style={{overflow:'hidden'}}>
 				<div className="jr-card-header text-center bg-secondary text-white m-0 p-2">

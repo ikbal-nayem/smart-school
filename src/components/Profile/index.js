@@ -1,8 +1,6 @@
 import React from 'react';
+import asyncComponent from 'util/asyncComponent';
 import Error404 from 'app/routes/extraPages/routes/404';
-import StudentProfile from './Student';
-import TeacherProfile from './Teacher';
-import StaffProfile from './Staff';
 
 import './style.css'
 
@@ -15,7 +13,14 @@ class Profile extends React.Component {
 	}
 
 	render() {
-		const RenderProfile = this.account_type==='student'? StudentProfile: this.account_type==='teacher'? TeacherProfile: this.account_type==='staff'? StaffProfile : Error404;
+		const RenderProfile = this.account_type==='student'
+													? asyncComponent(()=>import('./Student'))
+													: this.account_type==='teacher'
+														? asyncComponent(()=>import('./Teacher'))
+														: this.account_type==='staff'
+															? asyncComponent(()=>import('./Staff'))
+															: Error404;
+
 		return (
 			<div className="app-wrapper">
 				<div className="jr-profile-content">

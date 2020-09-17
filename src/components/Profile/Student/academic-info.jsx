@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { IconButton } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons'
+import { Skeleton } from '@material-ui/lab';
 
 
 const AcademicInfo = ({academic_info, name, photo}) => {
@@ -26,7 +27,7 @@ const AcademicInfo = ({academic_info, name, photo}) => {
 			<div className="jr-card-body p-0">
 				<div className="row">
 					<div className="col-4">Class</div>
-					<div>{class_info.class_code}</div>
+					<div>{class_info && class_info.class_code ? class_info.class_code : <Skeleton animation="wave" width={80} height={20}/> }</div>
 				</div>
 				{
 					class_info.group ?
@@ -34,29 +35,29 @@ const AcademicInfo = ({academic_info, name, photo}) => {
 					<hr className="my-2"/>
 					<div className="row">
 						<div className="col-4">Group</div>
-						<div>{class_info.group}</div>
+						<div>{class_info.group ? class_info.group : <Skeleton animation="wave" width={80} height={20}/>}</div>
 					</div>
 					</React.Fragment> : null
 				}
 				<hr className="my-2"/>
 				<div className="row">
 					<div className="col-4">Section</div>
-					<div>{class_info.section}</div>
+					<div>{class_info && class_info.section ? class_info.section : <Skeleton animation="wave" width={80} height={20}/>}</div>
 				</div>
 				<hr className="my-2"/>
 				<div className="row">
 					<div className="col-4">Roll</div>
-					<div>{class_info.roll}</div>
+					<div>{class_info && class_info.roll ? class_info.roll : <Skeleton animation="wave" width={80} height={20}/>}</div>
 				</div>
 				<hr className="my-2"/>
 				<div className="row">
 					<div className="col-4">Shift</div>
-					<div>{class_info.shift}</div>
+					<div>{class_info && class_info.shift ? class_info.shift : <Skeleton animation="wave" width={80} height={20}/>}</div>
 				</div>
 				<hr className="my-2"/>
 				<div className="row">
 					<div className="col-4">Year</div>
-					<div>{class_info.session}</div>
+					<div>{class_info && class_info.session ? class_info.session : <Skeleton animation="wave" width={80} height={20}/>}</div>
 				</div>
 			</div>
 		</div>

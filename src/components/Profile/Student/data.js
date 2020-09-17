@@ -1,8 +1,8 @@
 const dummy = {
     "username": "",
-    "first_name": "",
-    "last_name": "",
-    "account_type": "",
+    "first_name": null,
+    "last_name": null,
+    "account_type": null,
     "is_left": false,
     "student_personal_info": {
         "guardian": null,

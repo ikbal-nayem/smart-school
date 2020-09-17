@@ -45,7 +45,9 @@ const TeacherTable = ()=> {
                               {/* Status */}
           <FormControl className={classes.formControl}>
             <InputLabel id="select-outlined"><IntlMessages id="status"/></InputLabel>
-            <Select labelId="select-outlined" id="select-outlined"
+            <Select
+              labelId="select-outlined"
+              id="select-outlined"
               value={status}
               onChange={handleStatus}
             >

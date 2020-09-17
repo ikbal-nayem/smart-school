@@ -19,11 +19,10 @@ const TableHeader = ({data})=>{
 	        </tr>
         </thead>
         <tbody>
-	        {data.map((item, index) => {
-	          return(
-	            <TableItem key={item.username} item={item} index={index}/>
-	          );
-	        })}
+	        {	data.length > 0
+	        	? data.map((item, index) => <TableItem key={item.username} item={item} index={index}/>)
+	        	: <React.Fragment><TableItem/><TableItem/><TableItem/></React.Fragment>
+	    		}
         </tbody>
       </table>
    </div>

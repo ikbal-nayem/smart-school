@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import IntlMessages from 'util/IntlMessages'
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -9,27 +9,22 @@ import {
 } from '@material-ui/core'
 
 import TableHeader from './TableHeader';
+import { getTeacherList } from './action';
 
-
-
-function createData(username, name, thumb, degree, designation, joining_date, email, phone_number) {
-  return {username, name, thumb, degree, designation, joining_date, email, phone_number};
-}
-
-const data = [
-  createData('ik', 'Teacher 1', "https://via.placeholder.com/150x150", 'BSC', 'VC', '21-06-2020', 'abc@email.com', '123456789'),
-  createData('df', 'Teacher 2', "https://via.placeholder.com/150x150", 'BSC', 'Teacher', '21-06-2020', 'abc@email.com', '123456789'),
-  createData('sd', 'Teacher 3', "https://via.placeholder.com/150x150", 'BSC', 'Teacher', '21-06-2020', 'abc@email.com', '123456789'),
-  createData('jd', 'Teacher 4', "https://via.placeholder.com/150x150", 'BSC', 'Principal', '21-06-2020', 'abc@email.com', '123456789'),
-  createData('mn', 'Teacher 5', "https://via.placeholder.com/150x150", 'BSC', 'Teacher', '21-06-2020', 'abc@email.com', '123456789'),
-  createData('ks', 'Teacher 6', "https://via.placeholder.com/150x150", 'BSC', 'Teacher','21-06-2020', 'abc@email.com', '123456789'),
-];
 
 
 const TeacherTable = ()=> {
-
   const classes = useStyles();
   const [status, setStatus] = useState('present');
+  const [teachers, setTeachers] = useState([]);
+
+  useEffect(()=>{
+    async function getTeacher(){
+      let data = await getTeacherList(status)
+      setTeachers(data)
+    }
+    getTeacher()
+  }, [setTeachers, status])
 
   const handleStatus = (event) => {
     setStatus(event.target.value);
@@ -59,7 +54,7 @@ const TeacherTable = ()=> {
         </div>
       </div>
 
-      <TableHeader data={data} />
+      <TableHeader data={teachers} />
 
     </div>
   );

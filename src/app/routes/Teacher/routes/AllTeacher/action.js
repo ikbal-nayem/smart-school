@@ -1,7 +1,7 @@
 import axios from 'util/Api';
 
 
-export const getStudent = (status='present')=>{
+export const getTeacherList = (status='present')=>{
 	return new Promise((resolve, reject)=>{
 			axios.get(`account/teacher/?status=${status}`)
 			.then(res => {

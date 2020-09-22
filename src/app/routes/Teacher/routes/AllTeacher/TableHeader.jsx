@@ -5,7 +5,7 @@ import TableItem from './TableItem';
 
 const TableHeader = ({data})=>{
 	return(
-	<div className="table-responsive-material">
+		<div className="table-responsive-material">
       <table className="default-table table-unbordered table table-sm table-hover">
         <thead className="th-border-b">
 	        <tr>
@@ -20,14 +20,13 @@ const TableHeader = ({data})=>{
 	        </tr>
         </thead>
         <tbody>
-	        {data.map((data, index) => {
-	          return (
-	            <TableItem key={data.username} data={data} index={index}/>
-	          );
-	        })}
+        {	data.length > 0
+        	? data.map((item, index) => <TableItem key={item.username} data={item} index={index}/>)
+        	: <React.Fragment><TableItem/><TableItem/><TableItem/></React.Fragment>
+    		}
         </tbody>
       </table>
-   </div>
+  	</div>
 	)
 }
 
